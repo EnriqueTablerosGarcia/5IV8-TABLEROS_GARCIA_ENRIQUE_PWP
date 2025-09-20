@@ -1,0 +1,10 @@
+*{
+    background-color: rgb(86, 185, 91);
+    font-family: 20px;
+} 
+header {
+    background: #2e7d32;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
