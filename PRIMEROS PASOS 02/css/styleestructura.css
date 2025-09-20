@@ -2,12 +2,12 @@
 
 padding:0;
 margin: 0;
-color: aquamarine;
+color: rgb(120, 206, 138);
 text-align: center;
 }
 
 html,body{
-background-color: chocolate;
+background-color: rgb(106, 143, 212);
 }
 
 .main-container
@@ -28,14 +28,14 @@ nav,section,footer,aside,article
     margin: 1rem;
     border-radius: 10px;
     padding: 1rem;
-
+    text-align: 5rem;
 }
 
 article,aside
 
 {
-width: 40%;
-display: inline-block;
+width: 60%;
+display: inline-flex;
 height: 300px;
 
 }
