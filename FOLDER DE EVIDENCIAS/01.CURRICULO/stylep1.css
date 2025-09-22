@@ -1,3 +1,19 @@
+/* Enlace especial del footer */
+.footer-link {
+    color: #fff;
+    background: #A976C3;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background 0.2s, color 0.2s;
+}
+.footer-link:hover {
+    background: #fff;
+    color: #A976C3;
+}
 h1, h2, h3 {
     color: #A976C3;
 * {
@@ -71,4 +87,5 @@ footer {
     border-radius: 18px 18px 0 0;
     font-size: 1.1rem;
     margin-top: 40px;
+}
 }
