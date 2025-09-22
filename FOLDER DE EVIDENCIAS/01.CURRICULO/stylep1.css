@@ -1,3 +1,17 @@
+/* Enlace de la serie favorita con colores del nav */
+.serie-link {
+    color: #39ff14;
+    background: #23233a;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 6px 16px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+.serie-link:hover {
+    background: #39ff14;
+    color: #23233a;
+}
 
 .serie-fav {
     text-align: center;
