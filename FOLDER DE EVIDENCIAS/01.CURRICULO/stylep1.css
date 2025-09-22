@@ -50,3 +50,18 @@ nav a:hover {
     color: #23233a;
 }
  
+
+
+h1, h2, h3 {
+    color: #ffbe00;
+    margin-top: 0;
+}
+
+.cv-section {
+    border: 2.5px solid #6c3483;
+    border-radius: 14px;
+    margin: 18px 12px;
+    padding: 18px 24px;
+    background: #23233a;
+    color: #fff;
+}
