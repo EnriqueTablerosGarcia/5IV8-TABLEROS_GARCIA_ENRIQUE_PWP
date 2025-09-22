@@ -65,3 +65,17 @@ h1, h2, h3 {
     background: #23233a;
     color: #fff;
 }
+ul {
+    padding-left: 20px;
+}
+
+footer {
+    background: #23233a;
+    color: #ff2a2a;
+    text-align: center;
+    padding: 14px 0 8px 0;
+    border-top: 3px solid #6c3483;
+    border-radius: 18px 18px 0 0;
+    font-size: 1.1rem;
+    margin-top: 40px;
+}
