@@ -79,3 +79,30 @@ footer {
     font-size: 1.1rem;
     margin-top: 40px;
 }
+
+.footer-link:hover {
+    background: #39ff14;
+    color: #23233a;
+}
+
+.footer-link {
+    color: #fff;
+    background: linear-gradient(90deg, #6c3483 60%, #39ff14 100%);
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 16px #0006;
+    border: 2px solid #fff;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
+}
+.footer-link:hover {
+    background: linear-gradient(90deg, #39ff14 60%, #6c3483 100%);
+    color: #23233a;
+    border: 2px solid #39ff14;
+    box-shadow: 0 6px 24px #39ff1466;
+}
