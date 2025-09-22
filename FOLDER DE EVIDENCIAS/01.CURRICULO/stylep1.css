@@ -2,7 +2,7 @@ h1, h2, h3 {
     color: #A976C3;
 }
 
-/* Borde para cada apartado del CV */
+
 .cv-section {
     border: 3px solid #39ff14;
     border-radius: 14px;
