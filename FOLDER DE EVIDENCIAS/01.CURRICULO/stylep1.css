@@ -17,3 +17,36 @@ header {
     font-size: 2rem;
     margin-bottom: 18px;
 }
+header {
+    background: #6c3483;
+    color: #fff;
+    padding: 18px 0 10px 0;
+    text-align: center;
+    border-bottom: 3px solid #39ff14;
+    border-radius: 0 0 16px 16px;
+    font-size: 2rem;
+    margin-bottom: 18px;
+}
+nav {
+    background: #23233a;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
+nav a {
+    color: #39ff14;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+    padding: 6px 14px;
+    border-radius: 6px;
+
+}
+
+nav a:hover {
+    background: #39ff14;
+    color: #23233a;
+}
+ 
