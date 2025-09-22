@@ -1,4 +1,16 @@
 
+.serie-fav {
+    text-align: center;
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
+.cv-section img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 body {
     background: #181828;
     color: #39ff14;
