@@ -6,7 +6,7 @@
 
 body{
 
-    background-image: url("./imagenes/fondo.jpg");
+    background-image:url(../04.IMAGENES/fondo.jpg);
     background-size: cover;
     color: aqua;
     display: flex;
@@ -28,6 +28,7 @@ user.login{
     border-radius: 10px solid rgb(155,244,16);
     text-align: center;
 }
+
 .title{
 text-align: center
 ;
@@ -35,18 +36,65 @@ font-family: "Times New Roman", Times, serif;
 text-transform: uppercase;
 font-size: 15px;
 padding-top: 5px;
-color: violet
+color: blueviolet
 ;
+
 }
 .userid{
    padding-top: 20px;
 }
+
 .userid h2
 {
 
     font-family: "Roboto";
     float:left;
     margin-left: 50px;
-    margin-rigth: 5px;
+    margin-right: 5px;
     padding-left: 10px;
+}
+.userid input{
+height: 25px;
+width: 300px;
+border:solid 2px #09c022;
+border-radius: 10px;
+margin-left: 20px;
+
+}
+
+.password{
+    padding-top: 20px;
+}
+.password h2
+{
+    font-family: "Roboto";
+    float:left;
+    margin-left: 50px;
+    margin-right: 5px;
+    padding-left: 10px;
+}
+.password input{
+height: 25px;
+width: 300px;
+border:solid 2px #09c022;
+border-radius: 10px;
+margin-left: 10px;
+
+}
+
+.button button{
+
+
+    margin-top: 20px;
+    width: 120px;
+    height: 35px;
+}
+
+
+.button p
+{margin-top: 15 px;
+    text-align: center;
+    text-transform:uppercase;
+    font-family: "Roboto"
+
 }
