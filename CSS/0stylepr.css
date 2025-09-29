@@ -1,4 +1,37 @@
-/* Centrar la tabla en la página */
+
+.portfolio-section {
+    background: #4b833c;
+    color: #23233a;
+    padding: 16px 24px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px #0003;
+    text-align: center;
+    font-weight: bold;
+}
+
+.nombre-section {
+    background: #6c3483;
+    color: #fff;
+    padding: 18px 0;
+    text-align: center;
+    font-size: 2rem;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 12px #0005;
+}
+
+.examen-section {
+    background: #23233a;
+    color: #39ff14;
+    padding: 16px 24px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px #0003;
+}
+
 .container-table {
     margin-left: auto;
     margin-right: auto;
@@ -6,6 +39,7 @@
     margin-bottom: 30px;
     display: table;
 }
+
 *{
     padding: 0;
     margin: 0;
