@@ -46,9 +46,9 @@ body{
 .userid input{
     height: 25px;
     width: 300px;
-    border: solid 2px #09c022;
+    border: solid 2px #09c022;s
     border-radius: 10px;
-    margin-left: 20px;
+    margin-left: 45px;
 }
 
 .password{
@@ -83,7 +83,7 @@ body{
 }
 
 .button p{
-    margin-top: 10px;
+    margin-top: 4px;
     text-align: center;
     text-transform: uppercase;
     font-family: 'Roboto';
@@ -97,3 +97,16 @@ margin: left 60px;
 color: cornsilk
 
 }
+
+a:hover{
+    color: blue;
+    text-decoration: none;
+}
+
+p{
+    color: cornsilk;}
+
+    
+
+
+
