@@ -1,3 +1,11 @@
+/* Centrar la tabla en la página */
+.container-table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: table;
+}
 *{
     padding: 0;
     margin: 0;
