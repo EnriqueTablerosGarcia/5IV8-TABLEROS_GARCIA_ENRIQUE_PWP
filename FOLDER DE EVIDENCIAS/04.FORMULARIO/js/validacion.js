@@ -1,3 +1,19 @@
+// Validación adicional para nombre con espacios y edad positiva
+function validarNombreYEdad(nombre, edad) {
+    // Permitir letras y espacios en el nombre
+    var nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+    if (!nombreRegex.test(nombre.trim())) {
+        alert("El nombre solo debe contener letras y espacios");
+        return false;
+    }
+    // Edad debe ser número positivo y razonable (1-120)
+    var edadNum = parseInt(edad, 10);
+    if (isNaN(edadNum) || edadNum < 1 || edadNum > 120) {
+        alert("Por favor, ingrese una edad válida entre 1 y 120");
+        return false;
+    }
+    return true;
+}
 /*
 enma script
 Javascript es un lenguaje multiparadigma
@@ -22,40 +38,33 @@ function validar(formulario) {
 
 
 
-    //validacion unicamente letras
-    var checStr = formulario.nombre.value;
-    alert(checStr);
-
-    var abcOK = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ '; 
-    var aliValido = true;
-    //tememos que comparar la cadena de nombre vs abc
-
-    for (var i = 0; i < checStr.length; i++) {
-        var caracteres = checStr.charAt(i);
-        for (var j = 0; j < abcOK.length; j++) {
-            if (caracteres == abcOK.charAt(j)) break;
-        }
-        if (j == abcOK.length) {
-            aliValido = false;
-            break;
-        }
-    
-     }
-     if (!aliValido) { alert("Escriba unicamente letras en el campo nombre"); formulario.nombre.focus(); return false;
+    // Validación nombre: solo letras y espacios, permite nombres como "Jaime Minor Gomez"
+    var nombre = formulario.nombre.value.trim();
+    var nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+    if (!nombreRegex.test(nombre)) {
+        alert("El nombre solo debe contener letras y espacios");
+        formulario.nombre.focus();
+        return false;
     }
 
-     if (!aliValido) { alert("Escriba unicamente digitos en el campo nombre"); formulario.edad.focus(); return false;
-
+    // Validación edad: debe ser número positivo y razonable (1-120)
+    var edad = formulario.edad.value.trim();
+    var edadNum = parseInt(edad, 10);
+    if (isNaN(edadNum) || edadNum < 1 || edadNum > 120) {
+        alert("Por favor, ingrese una edad válida entre 1 y 120");
+        formulario.edad.focus();
+        return false;
     }
 
-    //vamos a crear una funcion de una expresion regular para validar el correo electronico
-    //texto.texto@texto.texto
+    // Validación correo electrónico básica
+    var correo = formulario.correo.value.trim();
+    var correoRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    if (!correoRegex.test(correo)) {
+        alert("Por favor, ingrese un correo electrónico válido");
+        formulario.correo.focus();
+        return false;
+    }
 
-    var b = /^[^@\s]+[^@\.\s]+(\.[^@\.\s]+)+$/; 
-    var txt = formulario.correo.value;
 
-alert("Email" + (b.test(txt)? " " : " no válido") + ("valido"));
-
-return b.test;
-
+    return true;
 }

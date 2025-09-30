@@ -4,40 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejemplo Formulario</title>
+    <link rel="stylesheet" href="css/stylef.css"> 
+        <link rel="icon" type="image/x-icon" href="EVA.jpeg">
     <script src="js/validacion.js"></script>
 </head>
 <body>
-    <p>Todos los formularios en la web, manejan metodos para el envio de las diferentes peticiones que realiza el
-        usuario. Considerando la arquitectura Cliente-servidor, el manejo de las peticiones se hace por medio del
-        protocolo HTTP y actualmente por HTTPS, cada peticion debe de ser atendida en un tiempo de respuesta conforme al
-        modelo TCP/IP. Los metodos principales de los formularios son:
-        <li>
-            <ol>GET: <h1>Este metodo se encarga de enviar la informacion del formulario por medio de la salida estadar
-                    (conocida como url), del navegador, esto propicia que puedan existir inyecciones de codigo
-                    realizando violaciones a la seguridad del sistema</h1>
-            </ol>
-            <ol>
-                POST: <h1>Este metodo se encarga de enviar la informacion para poder registar un cambio o un nuevo
-                    registrp dentro del sistea, enviandola igual por el metodo estandar; pero mediante un ocultamiento,
-                    esto significa que no es visible para el usuario. Lo que nos ofrece un mayor grado de seguridad en
-                    el manejo de informacion</h1>
-            </ol>
-        </li>
-    </p>
+    <div class="info-section">
+        <p>Todos los formularios en la web, manejan metodos para el envio de las diferentes peticiones que realiza el
+            usuario. Considerando la arquitectura Cliente-servidor, el manejo de las peticiones se hace por medio del
+            protocolo HTTP y actualmente por HTTPS, cada peticion debe de ser atendida en un tiempo de respuesta conforme al
+            modelo TCP/IP. Los metodos principales de los formularios son:</p>
+        <ul>
+            <li><h2>GET</h2>
+                <span>Este método se encarga de enviar la información del formulario por medio de la salida estándar (conocida como url) del navegador, esto propicia que puedan existir inyecciones de código realizando violaciones a la seguridad del sistema.</span>
+            </li>
+            <li><h2>POST</h2>
+                <span>Este método se encarga de enviar la información para poder registrar un cambio o un nuevo registro dentro del sistema, enviándola igual por el método estándar; pero mediante un ocultamiento, esto significa que no es visible para el usuario. Lo que nos ofrece un mayor grado de seguridad en el manejo de información.</span>
+            </li>
+        </ul>
+    </div>
     <br>
     <p>En resumen los metodos son:
-        <li>
-            <ol>GET: Sirve para enviar y realizar operaciones de lectura o consulta</ol>
-            <ol>POST: Sirve para enviar informacion de un recurso al servidor, con el fin de registrarlo</ol>
-            <ul>DELETE: Sirve para eliminar un recurso especifico dentro del servidor obteniendo una respuesta de
-                actualizacion</ul>
-                <ul>
-                    PUT: Sirve para almacenar la informacion de un recurso particular y conectarse al servicio para realizar la actualizacvion
-                </ul>
-                <ul>
-                    HEAD: Sirve para regresar ael codigo de puesta de ciañqioer cabecera HTTP asociada a un recurso
-                </ul>
-        </li>
+        <ul>
+            <li><h3>GET</h3> Sirve para enviar y realizar operaciones de lectura o consulta</li>
+            <li><h3>POST</h3> Sirve para enviar información de un recurso al servidor, con el fin de registrarlo</li>
+            <li><h3>DELETE</h3> Sirve para eliminar un recurso específico dentro del servidor obteniendo una respuesta de actualización</li>
+            <li><h3>PUT</h3> Sirve para almacenar la información de un recurso particular y conectarse al servicio para realizar la actualización</li>
+            <li><h3>HEAD</h3> Sirve para regresar el código de puesta de cualquier cabecera HTTP asociada a un recurso</li>
+        </ul>
     </p>
 
 
@@ -56,14 +50,15 @@
         <input type="number" id="edad" name="edad" required placeholder="Escribe tu edad">
 <br>
     <label for="email">Email:</label>
+    <br>
 
     <input type="email" id="correo" name="correo" required placeholder="Ingresa Aquí tu correo">
     
 <br>
-
+<br>
 <input type="submit" value="Enviar Registro" name="Enviar">
 
-<br>
+<br><br>
 
 <input type="reset" value="Borrar Registro" name="Borrar">
 
@@ -73,5 +68,8 @@
 
 
 </form>
+</div>
+<div style="text-align:center; margin-top:32px;">
+    <a href="../../index.html" class="btn-regreso">Volver al menú de prácticas TGE</a>
 </div>
 </body>
