@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 - Tienda de Doña pelos</title>
+     <link rel="icon" type="image/x-icon" href="FOLDER DE EVIDENCIAS/05.Ejercicios - 2DO PARCIAL/EVA.jpeg">
+    <link rel="stylesheet" type="text/css" href="css/ej.css">
+</head>
+<body>
+     4. Doña Pelos ofrece un descuento en su tienda del 15% sobre el total de la compra y un cliente desea saber cuánto deberá pagar finalmente por su compra.
+
+    <div class="container-main">
+        <form action="" method="post" name="formulario">
+            <label for="">Formulario para calcular el total con descuento del 15%</label>
+            <br><br>
+
+            <div class="container-table">
+                <table class="table">
+                    <tr>
+                        <td>Introduce el total de tu compra:</td>
+                        <td>
+                            <input type="text" name="total" id="total" onkeypress="return validarn(event)">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="button" value="Calcular Descuento" name="enviar" onclick="calcularDescuento()">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Total a pagar con el descuento aplicado:</td>
+                        <td>
+                            <input type="text" name="resultado" id="resultado" readonly="readonly" class="input_text">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="button" value="Borrar datos" name="borrar" onclick="borrarDatos()">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <div style="text-align:center; margin: 30px 0 10px 0;">
+            <a href="..//05.Ejercicios - 2DO PARCIAL/MENU.html" class="footer-link">Volver al menú de Ejercicios</a>
+        </div>
+    </footer>
+
+    <script src="js/funciones4.js"></script>
+</body>
+</html>
