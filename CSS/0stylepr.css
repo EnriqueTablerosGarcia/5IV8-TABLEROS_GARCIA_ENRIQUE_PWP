@@ -173,3 +173,24 @@ td {
     padding: 10px;
     border-radius: 6px;
 }
+
+.footer-link {
+    display: inline-block;
+    padding: 12px 32px;
+    font-size: 1.1rem;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    color: #fff;
+    background: linear-gradient(90deg, #6c3483 60%, #39ff14 100%);
+    border: 2px solid #6c3483;
+    border-radius: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 2px 12px #0004;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+.footer-link:hover {
+    background: linear-gradient(90deg, #39ff14 60%, #6c3483 100%);
+    color: #23233a;
+    transform: scale(1.05);
+    border-color: #39ff14;
+}

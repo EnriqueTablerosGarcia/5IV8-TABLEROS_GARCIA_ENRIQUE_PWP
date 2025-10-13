@@ -7,27 +7,17 @@ function validarn(e) {
     return patron.test(codigo);
 }
 
-
 function interes() {
     var valor = document.getElementById("cantidadi").value;
-    var meses = document.getElementById("mesesi").value;
+    var parseo = parseFloat(valor);
 
-    var capital = parseFloat(valor);
-    var numMeses = parseInt(meses);
-
-    if (isNaN(capital) || capital <= 0) {
+    if (isNaN(parseo) || parseo <= 0) {
         alert("Por favor ingrese una cantidad válida.");
         return;
     }
 
-    if (isNaN(numMeses) || numMeses < 1 || numMeses > 12) {
-        alert("Por favor ingrese un número de meses entre 1 y 12.");
-        return;
-    }
-
-    // Tasa anual 8.05%, proporcional a los meses
-    var interes = capital * (0.0805 * (numMeses / 12));
-    var total = capital + interes;
+    var interes = parseo * 0.02; // 2% mensual
+    var total = parseo + interes;
 
     document.getElementById("saldoi").value = "$ " + total.toFixed(2);
 }
@@ -36,18 +26,9 @@ function interes() {
 function borrari() {
     document.getElementById("saldoi").value = "";
     document.getElementById("cantidadi").value = "";
-    document.getElementById("mesesi").value = "";
 }
 
-
-
-
-
-
-// Realiza Del ejercicio 1, tenemos que agregar el campo numero de meses y sera una imversion de maximo 18 meses  
-
-
-
+//Del ejercicio 1, tenemos que agregar el campo numero de meses y sera una imversion de maximo 18 meses 
 
 
 // Un vendedor recibe un sueldo base mas un 10% extra por comision de sus ventas, el vendedor desea saber cuanto dinero obtendra por concepto de comisiones por las tres ventas que realiza en el mes y el total que recibira en el mes tomando en cuenta su sueldo base y comisiones.
