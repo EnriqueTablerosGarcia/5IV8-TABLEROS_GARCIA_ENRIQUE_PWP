@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 7 -  Edad</title>
+    <link rel="stylesheet" type="text/css" href="css/ej.css">
+    <link rel="icon" type="image/x-icon" href="FOLDER DE EVIDENCIAS/05.Ejercicios - 2DO PARCIAL/EVA.jpeg">
+</head>
+<body>
+    7. Realizar un algoritmo que calcule la edad de una persona.
+
+    <div class="container-main">
+        <form action="" name="formulario">
+            <label>Ingrese su año de nacimiento:</label>
+            <br><br>
+
+            <table>
+                <tr>
+                    <td>Año de nacimiento:</td>
+                    <td><input type="text" id="anioNacimiento" onkeypress="return validarn(event)"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="button" value="Calcular Edad" onclick="calcularEdad()"></td>
+                </tr>
+
+                <tr>
+                    <td>Tu edad es:</td>
+                    <td><input type="text" id="edad" readonly></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="button" value="Borrar datos" onclick="borrarDatos()"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+      <footer>
+        <div style="text-align:center; margin: 30px 0 10px 0;">
+            <a href="..//05.Ejercicios - 2DO PARCIAL/MENU.html" class="footer-link">Volver al menú de Ejercicios</a>
+        </div>
+    </footer>
+
+    <script src="js/funciones7.js"></script>
+</body>
+</html>

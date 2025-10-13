@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5 - Calificaciones</title>
+    <link rel="icon" type="image/x-icon" href="FOLDER DE EVIDENCIAS/05.Ejercicios - 2DO PARCIAL/EVA.jpeg">
+    <link rel="stylesheet" type="text/css" href="css/ej.css">
+</head>
+<body>
+    5. Un alumno desea saber cuál será su calificación final en la materia de Algoritmos.
+    <p>La calificación se compone de:</p>
+    <ul>
+        <li>55% del promedio de tres calificaciones parciales.</li>
+        <li>30% de la calificación del examen final.</li>
+        <li>15% de la calificación del trabajo final.</li>
+    </ul>
+
+    <div class="container-main">
+        <form action="" method="post" name="formulario">
+            <label>Formulario para calcular la calificación final</label>
+            <br><br>
+
+            <div class="container-table">
+                <table class="table">
+                    <tr>
+                        <td>Calificación del primer parcial:</td>
+                        <td><input type="text" id="parcial1" onkeypress="return validarn(event)"></td>
+                    </tr>
+                    <tr>
+                        <td>Calificación del segundo parcial:</td>
+                        <td><input type="text" id="parcial2" onkeypress="return validarn(event)"></td>
+                    </tr>
+                    <tr>
+                        <td>Calificación del tercer parcial:</td>
+                        <td><input type="text" id="parcial3" onkeypress="return validarn(event)"></td>
+                    </tr>
+                    <tr>
+                        <td>Calificación del examen final:</td>
+                        <td><input type="text" id="examen" onkeypress="return validarn(event)"></td>
+                    </tr>
+                    <tr>
+                        <td>Calificación del trabajo final:</td>
+                        <td><input type="text" id="trabajo" onkeypress="return validarn(event)"></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td><input type="button" value="Calcular Calificación Final" onclick="calcularFinal()"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Calificación final:</td>
+                        <td><input type="text" id="resultado" readonly="readonly"></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td><input type="button" value="Borrar datos" onclick="borrarDatos()"></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+
+     <footer>
+        <div style="text-align:center; margin: 30px 0 10px 0;">
+            <a href="..//05.Ejercicios - 2DO PARCIAL/MENU.html" class="footer-link">Volver al menú de Ejercicios</a>
+        </div>
+    </footer>
+
+    <script src="js/funciones5.js"></script>
+</body>
+</html>
