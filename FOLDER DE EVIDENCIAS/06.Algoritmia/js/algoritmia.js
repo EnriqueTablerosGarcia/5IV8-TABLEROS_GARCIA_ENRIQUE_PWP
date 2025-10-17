@@ -1,99 +1,71 @@
-function problema1() { 
-   
-    //split ESPACIOS 
-    //reverse
+// ---------------- PROBLEMA 1 ----------------
+function problema1() {
+  var texto = document.getElementById("p1-input").value.trim();
 
-    var texto = document.getElementById("p1-input").value.trim();
+  if (texto === "") {
+    document.getElementById("p1-output").textContent = "Por favor ingresa algunas palabras.";
+    return;
+  }
 
-    if (texto === "") {
-        document.getElementById("p1-output").textContent = "Por favor ingresa algunas palabras.";
-        return;
-    }
-
-    
-    var palabras = texto.split(" ");
-    var invertido = palabras.reverse().join(" ");
-
-   
-    document.getElementById("p1-output").textContent = invertido;
+  var palabras = texto.split(" ");
+  var invertido = palabras.reverse().join(" ");
+  document.getElementById("p1-output").textContent = invertido;
 }
 
+// ---------------- PROBLEMA 2 ----------------
+function problema2() {
+  // Obtener valores de los vectores
+  var v1 = [
+    parseFloat(document.getElementById("p2-x1").value) || 0,
+    parseFloat(document.getElementById("p2-x2").value) || 0,
+    parseFloat(document.getElementById("p2-x3").value) || 0,
+    parseFloat(document.getElementById("p2-x4").value) || 0,
+    parseFloat(document.getElementById("p2-x5").value) || 0
+  ];
 
+  var v2 = [
+    parseFloat(document.getElementById("p2-y1").value) || 0,
+    parseFloat(document.getElementById("p2-y2").value) || 0,
+    parseFloat(document.getElementById("p2-y3").value) || 0,
+    parseFloat(document.getElementById("p2-y4").value) || 0,
+    parseFloat(document.getElementById("p2-y5").value) || 0
+  ];
 
+  // Ordenar: uno ascendente y otro descendente
+  v1.sort((a, b) => a - b);
+  v2.sort((a, b) => b - a);
 
-function problema2() { 
-// primero necesitamos los valores
+  var producto = 0;
+  for (var i = 0; i < v1.length; i++) {
+    producto += v1[i] * v2[i];
+  }
 
-
-var p2_x1 = document.querySelector("#p2_x1").value;
-var p2_x2 = document.querySelector("#p2_x2").value;
-var p2_x3 = document.querySelector("#p2_x3").value;
-var p2_x4 = document.querySelector("#p2_x4").value;
-var p2_x5 = document.querySelector("#p2_x5").value;
-  
-
-
-var p2_y1 = document.querySelector("#p2_y1").value;
-var p2_y2 = document.querySelector("#p2_y2").value;
-var p2_y3 = document.querySelector("#p2_y3").value;
-var p2_y4 = document.querySelector("#p2_y4").value;
-var p2_y5 = document.querySelector("#p2_y5").value;
-  
-
-
-
-//Creamos los vectores
-
-var v1 = [p2_x1,p2_x2,p2_x3,p2_x4,p2_x5];
-var v2 = [p2_y1,p2_y2,p2_y3,p2_y4,p2_y5];
-
-v1 = v1.sort(function (a,b)(return b=a )); 
-
-v2 = v2.sort(function(a, b) (return b=a)); 
-
-v2 = v2.reverse(
-);
-
-var p2_producto = 0;
-
-for (var i=0; i < v1.length; i++){
-p2_producto += v1 [i] *  v2[i];
+  document.getElementById("p2-output").textContent = `El producto escalar mínimo es: ${producto}`;
 }
 
-document.querySelector (#p2_resultado)
-
-}
-//jimmy
-
-
-
+// ---------------- PROBLEMA 3 ----------------
 function problema3() {
-    var texto = document.getElementById("p3-input").value.trim();
+  var texto = document.getElementById("p3-input").value.trim();
 
-    if (texto === "") {
-        document.getElementById("p3-output").textContent = "Por favor ingresa algunas palabras.";
-        return;
+  if (texto === "") {
+    document.getElementById("p3-output").textContent = "Por favor ingresa algunas palabras.";
+    return;
+  }
+
+  var palabras = texto.split(",");
+  var maxUnicos = 0;
+  var palabraMax = "";
+
+  palabras.forEach(function (palabra) {
+    var soloLetras = palabra.toUpperCase().replace(/[^A-Z]/g, "");
+    var unicos = new Set(soloLetras);
+
+    if (unicos.size > maxUnicos) {
+      maxUnicos = unicos.size;
+      palabraMax = palabra;
     }
+  });
 
-
-    var palabras = texto.split(",");
-
-    var maxUnicos = 0;
-    var palabraMax = "";
-
-    palabras.forEach(function(palabra) {
-  
-        var soloLetras = palabra.toUpperCase().replace(/[^A-Z]/g, "");
-
-      
-        var unicos = new Set(soloLetras);
-
-        if (unicos.size > maxUnicos) {
-            maxUnicos = unicos.size;
-            palabraMax = palabra;
-        }
-    });
-
-    document.getElementById("p3-output").textContent = 
-        "Palabra con más caracteres únicos: " + palabraMax + " (" + maxUnicos + " caracteres únicos)";
+  document.getElementById("p3-output").textContent =
+    `Palabra con más caracteres únicos: ${palabraMax} (${maxUnicos} caracteres únicos)`;
 }
