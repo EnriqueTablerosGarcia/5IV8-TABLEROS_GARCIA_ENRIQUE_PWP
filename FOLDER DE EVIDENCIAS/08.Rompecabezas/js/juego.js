@@ -102,7 +102,7 @@ function intercambiarposicionesrompe(filapos1,columnapos1, filapos2,columnapos2)
 
         //inter
         rompe[filapos1, columnapos1] = pos2;
-        rompe[filapos2, columnapos2] = pos1;
+        rompe[filapos2, columnapos2] = pos1 ;
 }
 
 

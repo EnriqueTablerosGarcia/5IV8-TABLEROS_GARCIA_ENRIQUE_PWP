@@ -14,7 +14,7 @@ function problema1() {
 
 // ---------------- PROBLEMA 2 ----------------
 function problema2() {
-  // Obtener valores de los vectores
+
   var v1 = [
     parseFloat(document.getElementById("p2-x1").value) || 0,
     parseFloat(document.getElementById("p2-x2").value) || 0,
@@ -31,7 +31,7 @@ function problema2() {
     parseFloat(document.getElementById("p2-y5").value) || 0
   ];
 
-  // Ordenar: uno ascendente y otro descendente
+
   v1.sort((a, b) => a - b);
   v2.sort((a, b) => b - a);
 
