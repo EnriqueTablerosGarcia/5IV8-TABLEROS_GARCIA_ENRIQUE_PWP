@@ -1,27 +1,24 @@
-document.getElementById("formulario").addEventListener("submit", function(e) {
-  e.preventDefault();
+//  PROBLEMA 1
+function problema1() {
+  var n1 = document.getElementById("p1-num1").value;
+  var n2 = document.getElementById("p1-num2").value;
 
-  let num1 = document.getElementById("num1").value;
-  let num2 = document.getElementById("num2").value;
-  let resultado = document.getElementById("resultado");
-
-  if (num1 === "" || num2 === "") {
-    resultado.textContent = "Debes ingresar ambos números.";
+  if (n1 === "" || n2 === "") {
+    document.getElementById("p1-output").textContent = "Por favor ingresa ambos números.";
     return;
   }
 
-  num1 = Number(num1);
-  num2 = Number(num2);
+  n1 = Number(n1);
+  n2 = Number(n2);
+  var resultado;
 
-  let res;
-
-  if (num1 === num2) {
-    res = num1 * num2;
-  } else if (num1 > num2) {
-    res = num1 - num2;
+  if (n1 === n2) {
+    resultado = n1 * n2;
+  } else if (n1 > n2) {
+    resultado = n1 - n2;
   } else {
-    res = num1 + num2;
+    resultado = n1 + n2;
   }
 
-  resultado.textContent = "Resultado: " + res;
-});
+  document.getElementById("p1-output").textContent = "Resultado: " + resultado;
+}
