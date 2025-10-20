@@ -3,33 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Problea 04 </title>
-       <link rel="icon" type="image/x-icon" href="./IMG_07/EVA.jpeg">
+    <title>Problema 04</title>
+    <link rel="icon" type="image/x-icon" href="./IMG_07/EVA.jpeg">
     <link rel="stylesheet" type="text/css" href="css/JSINT.css">
+    <script src="./js/F.js"></script>
 </head>
 <body>
-   
-   
-
-
-
-Calcular la utilidad de un trabajador que recibe le reparto de utilidades anual, si este se le asigna un porcentaje de acuerdo a su salario mensual y depende de la antigüedad de la empresa
-
-menos de 1 año 5%
-1 a 2 años 7%
-2 a 5 años 10 %
-5 a 10 años 15%
-mas de 10 20%
-
-
-
-
+    <div class="container">
+        <div class="problema-container">
+            <h2 class="problema-title">Problema 4</h2>
+            <h3>
+                Calcular la utilidad de un trabajador que recibe el reparto de utilidades anual, según su salario mensual y antigüedad.<br>
+                Porcentaje según antigüedad:<br>
+                - Menos de 1 año: 5%<br>
+                - 1 a 2 años: 7%<br>
+                - 2 a 5 años: 10%<br>
+                - 5 a 10 años: 15%<br>
+                - Más de 10 años: 20%
+            </h3>
+            <div class="problema-content">
+                <input type="number" id="p4-salario" placeholder="Ingresa tu salario mensual">
+                <input type="number" id="p4-antiguedad" placeholder="Ingresa tu antigüedad en años">
+                <button type="button" onclick="problema4()">Calcular utilidad</button>
+                <pre id="p4-output">Esperando datos...</pre>
+            </div>
+        </div>
+    </div>
 </body>
 <footer>
-<div class="container-main">
-    <div style="text-align:center; margin: 30px 0 10px 0;">
-    <a href="./INDEXejerciciosp2.html" class="footer-link">Volver al menú </a>
-    </div>
+    <div class="container-main">
+        <div style="text-align:center; margin: 30px 0 10px 0;">
+            <a href="./INDEXejerciciosp2.html" class="footer-link">Volver al menú</a>
+        </div>
     </div>
 </footer>
 </html>
