@@ -1,4 +1,4 @@
-// ---------------- PROBLEMA 1 ----------------
+//  PROBLEMA 1 
 function problema1() {
   var texto = document.getElementById("p1-input").value.trim();
 
@@ -12,7 +12,7 @@ function problema1() {
   document.getElementById("p1-output").textContent = invertido;
 }
 
-// ---------------- PROBLEMA 2 ----------------
+// PROBLEMA 2 
 function problema2() {
 
   var v1 = [
@@ -43,7 +43,7 @@ function problema2() {
   document.getElementById("p2-output").textContent = `El producto escalar mínimo es: ${producto}`;
 }
 
-// ---------------- PROBLEMA 3 ----------------
+//  PROBLEMA 3 
 function problema3() {
   var texto = document.getElementById("p3-input").value.trim();
 
