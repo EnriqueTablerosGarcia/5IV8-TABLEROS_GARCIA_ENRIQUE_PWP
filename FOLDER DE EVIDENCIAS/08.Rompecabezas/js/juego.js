@@ -125,7 +125,7 @@ function intercambiarPosicionesDOM(idPieza1, idPieza2) {
     var pieza1 = document.getElementById(idPieza1);
     var pieza2 = document.getElementById(idPieza2);
 
-    // ❌ ERROR CORREGIDO: variables mal escritas (elementoPieza1 → pieza1)
+    // ❌ ERROR CORREGIDO: variables mal escritas (elementoPieza1 → pieza1) este es e,l error
     var padre = pieza1.parentNode;
 
     // Clonar piezas
