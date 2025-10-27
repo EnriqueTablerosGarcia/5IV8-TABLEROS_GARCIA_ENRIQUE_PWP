@@ -6,10 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Enrique Tabkeris Garcua",
-  "license": "ISC",
-  "dependencies": {
-    "boostrap": "^2.0.0",
-    "express": "^5.1.0"
-  }
+  "author": "Enrique Tableros Garcia",
+  "license": "ISC"
 }

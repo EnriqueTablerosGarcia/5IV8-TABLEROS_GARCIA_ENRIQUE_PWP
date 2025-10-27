@@ -1,7 +1,7 @@
 // Instrucciones del juego
 var instrucciones = [
-    "Utiliza las flechas de navegación para mover las piezas.",
-    "Para ordenar las piezas guíate por la imagen objetivo."
+    "Utiliza las flechas de navegacion para mover las piezas.",
+    "Para ordenar las piezas guiate por la imagen objetivo."
 ];
 
 // Guardar movimientos

@@ -1,4 +1,3 @@
-const { response } = require('express');
 var http = require('http');
 //vamos a crear nuestro propio server
 
