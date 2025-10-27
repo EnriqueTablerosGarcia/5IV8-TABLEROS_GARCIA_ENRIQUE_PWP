@@ -4,6 +4,9 @@ var instrucciones = [
     "Para ordenar las piezas guiate por la imagen objetivo."
 ];
 
+
+
+
 // Guardar movimientos
 var movimientos = [];
 
@@ -200,6 +203,11 @@ function iniciar() {
     mezclarPiezas(30);
     capturarTeclas();
     mostrarInstrucciones(instrucciones);
+}
+
+function intercambiar() {
+    mezclarPiezas(30);
+    capturarTeclas();
 }
 
 iniciar();
