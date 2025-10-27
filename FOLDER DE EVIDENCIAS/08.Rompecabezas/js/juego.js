@@ -202,14 +202,17 @@ function capturarTeclas() {
 function iniciar() {
     mezclarPiezas(30);
     capturarTeclas();
-    mostrarInstrucciones(instrucciones);
+
 }
+
+//Reinicar las piezas del juego para volver a jugar
 
 function intercambiar() {
     mezclarPiezas(30);
-    capturarTeclas();
+    capturarTeclas();   
 }
 
+//inicar el juego
 iniciar();
 
 
