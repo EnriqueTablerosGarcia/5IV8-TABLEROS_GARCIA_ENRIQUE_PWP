@@ -76,7 +76,7 @@ const processPokemonType = (pokemonData) =>{
     };
     //ahora necesitamos obtener los stats del pokemon 
     const processPokemonStats = (pokemonData) => { 
-        pokemonData.stats.?.forEach((pokemonstatData) => {
+        pokemonData.stats.?forEach((pokemonstatData) => {
             //vamos a evaluar si encuentra el nombre de la estadistica, para colocarlo en su contenedor correspondiente
             switch(pokemonstatData.stat.name){
                 case "hp":
@@ -85,12 +85,12 @@ const processPokemonType = (pokemonData) =>{
 
             }
             break; 
-            switch(pokemonstatData.stat.name){
+         
                 case "attack":
                     pokemonStatsElements.attack.innerHTML = pokemonstatData.base_stat;
                     pokemonStatsElements.attack.style = `background: linear-gradient(0deg, rgba(0, 118, 225, 1) ${pokemonstatData.base_stat}%, rgba(0, 0, 0, 1) ${pokemonstatData.base_stat}%);`;
 
-                    switch(pokemonstatData.stat.name){
+                  
                 case "defense":
                     pokemonStatsElements.defense.innerHTML = pokemonstatData.base_stat;
                     pokemonStatsElements.defense.style = `background: linear-gradient(0deg, rgba(0, 118, 225, 1) ${pokemonstatData.base_stat}%, rgba(0, 0, 0, 1) ${pokemonstatData.base_stat}%);`;
@@ -98,14 +98,14 @@ const processPokemonType = (pokemonData) =>{
             }
             break; 
 
-            switch(pokemonstatData.stat.name){
+       
                 case "special-attack":
                     pokemonStatsElements.specialAttack.innerHTML = pokemonstatData.base_stat;
                     pokemonStatsElements.specialAttack.style = `background: linear-gradient(0deg, rgba(0, 118, 225, 1) ${pokemonstatData.base_stat}%, rgba(0, 0, 0, 1) ${pokemonstatData.base_stat}%);`;
 
             }
             break; 
-                switch(pokemonstatData.stat.name){
+               
                 case "special-defense":
                     pokemonStatsElements.specialDefense.innerHTML = pokemonstatData.base_stat;
                     pokemonStatsElements.specialDefense.style = `background: linear-gradient(0deg, rgba(0, 118, 225, 1) ${pokemonstatData.base_stat}%, rgba(0, 0, 0, 1) ${pokemonstatData.base_stat}%);`;
@@ -123,7 +123,7 @@ const processPokemonType = (pokemonData) =>{
         break;
         });
     };
-    
+
 
 
 
