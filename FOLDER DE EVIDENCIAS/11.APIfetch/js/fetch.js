@@ -1,103 +1,105 @@
-/*
-Este es un ejemplo de una API REST utilizando una llamada con fetch, el cual sirve para obtener información sobre el tipo de api (pokemon) y obtener su estrutura a partir de crear una función call back con una promesa.
-*/
-const pokeApiUrl = 'https://pokeapi.co/api/v2/';
-
-//Vamos a crear una función para obtener todos los datosde la pokedex, para esto tenemos que imaginar el orden y la obtención de los datos
+// Esta es una API REST que nos permite obtener información sobre diferentes pokémon puedes ver la estructura de la información
+// en https://pokeapi.co/, de esta forma nuestra app de frontend se comunicará con un backend
+const pokeApiUrl = "https://pokeapi.co/api/v2/";
 const pokedex = () => {
-    //Primero necesitamos obtener todas las stats del pokemon, así que necesitamos crear un diccionario para obtener cada uno de los elementos del front para despues vaciar los datos
+    // Estes es un objeto auxiliar que nos permite acceder a los campos destinados a mostrar las
+    // estadísticas del pokemon a buscar, como puedes ver, es haciendo uso de la API de DOM que vimos anteriormente
     const pokemonStatsElements = {
-        hp: document.getElementById('pokemonStatHP'),
-        attack: document.getElementById('pokemonStatAttack'),
-        defense: document.getElementById('pokemonStatDefense'),
-        specialAttack: document.getElementById('pokemonStatSpecialAttack'),
-        specialDefense: document.getElementById('pokemonStatSpecialDefense'),
-        speed: document.getElementById('pokemonStatSpeed')
+        hp: document.getElementById("pokemonStatHp"),
+        attack: document.getElementById("pokemonStatAttack"),
+        defense: document.getElementById("pokemonStatDefense"),
+        specialAttack: document.getElementById("pokemonStatSpecialAttack"),
+        specialDefense: document.getElementById("pokemonStatSpecialDefense"),
+        speed: document.getElementById("pokemonStatSpeed"),
     };
-    //Necesitamos un auxiliar que nos permita utilizar la clase del tipo de pokemon para cambiar la css dependiendo del tipo
+    // Este es una referencia auxiliar que nos permitirá utilizar las clases que están en el archivo de CSS de acuerdo al tipo de pokemon
     let currentClassType = null;
-
-    //TIene que cambiar los elementos de la imagen, para ello debemos crear un template que se encargue de encadenar los datos
+    // Este es una simple cadena que nos ayudará a crear una imagen
     const imageTemplate = "<img class='pokedisplay' src='{imgSrc}' alt='pokedisplay'/>";
-
-    //Necesitamos un objeto que se encargue de guardar las rutas de las imagenes que vamos a cambiar dependiendo de si es una búsqueda, si lo encontró o no al pokemon
+    // Este objeto simplemente guarda las rutas de imágenes de apoyo que se utilizaran cuando esperemos el resultado de la búsqueda
+    // o cuando no se encuentre el pokemon solicitado
     const images = {
         imgPokemonNotFound: "./img/404.png",
-        imgLoading: "./img/loading.gif"
-    }
-
-    //Necesitamos una variable que guarde todos los contenedores de la pokedex
+        imgLoading: "./img/loading.gif",
+    };
+    // Este objeto contiene las referencias de los elementos que desplegarán la información del pokémon
     const containers = {
-        imageContainer: document.getElementById('pokedisplay-container'),
-        pokemonTypesContainer: document.getElementById('pokemonTypes'),
-        pokemonNameElement: document.getElementById('pokemonNameResult'),
-        pokemonAbilitiesElement: document.getElementById('pokemonAbilities'),
-        pokemonMovesElement: document.getElementById('pokemonMoves'),
-        pokemonIdElement: document.getElementById('pokemonId')
+        imageContainer: document.getElementById("pokedisplay-container"),
+        pokemonTypesContainer: document.getElementById("pokemonTypes"),
+        pokemonNameElement: document.getElementById("pokemonNameResult"),
+        pokemonAbilitiesElement: document.getElementById("pokemonAbilities"),
+        pokemonMovesElement: document.getElementById("pokemonMoves"),
+        pokemonIdElement: document.getElementById("pokemonId")
     };
-
-    //Necesitamos un objeto de tipo array que guarde los botones con su tipo de referencia
+    // Este objeto contiene las referencias de los botones
     const buttons = {
-        all: Array.from(document.getElementsByClassName('btn')),
-        search: document.getElementById('btnSearch'),
-        next: document.getElementById('btnUp'),
-        previous: document.getElementById('btnDown')
+        all: Array.from(document.getElementsByClassName("btn")),
+        search: document.getElementById("btnSearch"),
+        next: document.getElementById("btnUp"),
+        previous: document.getElementById("btnDown")
     };
+    // Esta es la referencia al campo de texto que usa el usuario para escribir el nombre
+    const pokemonInput = document.getElementById("pokemonName");
+    // La agrupación de los elementos en objetos simplemente da una mejor estructura al código, de igual manera, es conveniente
+    // separar los segmentos del código en funciones más pequeñas, de esta manera no solo se tiene un mejor orden, sino que
+    // nos ahorrará problemas a la hora de depurar posibles errores en el código pues será más fácil determinar que es lo que
+    // no está funcionando adecuadamente.
 
-    //Para buscar un pokemon necesitamos una variable que guarde el nombre del pokemon
-    const pokemonInput = document.getElementById('pokemonName');
-
-    //La agregación de los elementos en este objeto debe ser una estructura que nos permita crear funciones mas pequeñas que sin importar el orden puedan obtener cada uno de los datos solicitados
+    // Esta función muestra el tipo de pokemon, recibe el resultado de la búsqueda de la API
     const processPokemonTypes = (pokemonData) => {
-        //Primero necesitamos obtener el tupo de pokemon, el nombre y la clase, para que se modifique en el html, ya que tenemos eso tendremos que obtener stats, moves, abilities
         let pokemonType = "";
-        //Utilizo una búsqueda de la clase de pokemon, eso se refiere al tipo de pokemon
+        // Utilizo la primera clase para dar el color a los contenedores de movimientos y habilidades
         const firstClass = pokemonData.types[0].type.name;
 
+        // ¿De dónde sale types, como sé es un arreglo? En la página de pokeapi(https://pokeapi.co/) puedes ver un ejemplo
+        // del objeto que responde, pokemonData es ese objeto
         pokemonData.types.forEach((pokemonTypeData) => {
-            //Necesito obtener la etiqueta de cada cambio
-            pokemonType += <span class="pokemon-type ${pokemonTypeData.type.name}">${pokemonTypeData.type.name}</span>;
+            // Se crea una etiqueta de clases por cada elemento type del arreglo
+            pokemonType += `<span class="pokemon-type ${pokemonTypeData.type.name}">${pokemonTypeData.type.name}</span>`;
         });
-        //Para poder quitar y cambiar el contenedor dependiendo del tipo tengo que saber a cual pertenece
+        // Se quita la clase previa del contenedor de habilidades y movimientos si hay una
         if (currentClassType) {
             containers.pokemonMovesElement.classList.remove(currentClassType);
             containers.pokemonAbilitiesElement.classList.remove(currentClassType);
         }
-        //Ahora tengo que agregar lo nuevo
+        // Se agrega la clase del tipo del contenedor de habilidades y movimientos
         containers.pokemonMovesElement.classList.add(firstClass);
         containers.pokemonAbilitiesElement.classList.add(firstClass);
-
-        //Debo de agregar las etiquetas creadas dentro del foreach
+        currentClassType = firstClass;
+        // Se agregan las etiquetas creadas previamente en nuestro forEach
         containers.pokemonTypesContainer.innerHTML = pokemonType;
     };
-    //Ahora necesitamos obtener las stats del pokemon
+    // Procesa las estadísticas del pokemon, recibe el objeto completo de la respuesta de la pokeapi
     const processPokemonStats = (pokemonData) => {
-        pokemonData.stats?.forEach((pokemonstatData) => {
-            //Vamos a evaluar si encuentra el nombre de la estadística para colocarla en el contenedor correspondiente
-            switch (pokemonstatData.stat.name) {
-                case 'hp':
-                    pokemonStatsElements.hp.innerHTML = pokemonstatData.base_stat;
-                    pokemonStatsElements.hp.style = background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonstatData.base_stat}%, rgba(0,0,0,1) ${pokemonstatData.base_stat}%);;
+        // El operador '?.' se llama encadenamiento opcional, si el elemento a la izquierda es null o undefined
+        // no ejecuta lo que esta a la derecha, más en https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+        pokemonData.stats?.forEach((pokemonStatData) => {
+            // Evalua el nombre de la estadística, y coloca su valor en su respectivo contenedor, y le aplica un
+            // estilo de gradiente, para hacer más visual el efecto.
+            switch (pokemonStatData.stat.name) {
+                case "hp":
+                    pokemonStatsElements.hp.innerHTML = pokemonStatData.base_stat;
+                    pokemonStatsElements.hp.style = `background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonStatData.base_stat}%, rgba(0,0,0,1) ${pokemonStatData.base_stat}%); `;
                     break;
-                case 'attack':
-                    pokemonStatsElements.attack.innerHTML = pokemonstatData.base_stat;
-                    pokemonStatsElements.attack.style = background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonstatData.base_stat}%, rgba(0,0,0,1) ${pokemonstatData.base_stat}%);;
+                case "attack":
+                    pokemonStatsElements.attack.innerHTML = pokemonStatData.base_stat;
+                    pokemonStatsElements.attack.style = `background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonStatData.base_stat}%, rgba(0,0,0,1) ${pokemonStatData.base_stat}%); `;
                     break;
-                case 'defense':
-                    pokemonStatsElements.defense.innerHTML = pokemonstatData.base_stat;
-                    pokemonStatsElements.defense.style = background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonstatData.base_stat}%, rgba(0,0,0,1) ${pokemonstatData.base_stat}%);;
+                case "defense":
+                    pokemonStatsElements.defense.innerHTML = pokemonStatData.base_stat;
+                    pokemonStatsElements.defense.style = `background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonStatData.base_stat}%, rgba(0,0,0,1) ${pokemonStatData.base_stat}%); `;
                     break;
-                case 'special-attack':
-                    pokemonStatsElements.specialAttack.innerHTML = pokemonstatData.base_stat;
-                    pokemonStatsElements.specialAttack.style = background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonstatData.base_stat}%, rgba(0,0,0,1) ${pokemonstatData.base_stat}%);;
+                case "special-attack":
+                    pokemonStatsElements.specialAttack.innerHTML = pokemonStatData.base_stat;
+                    pokemonStatsElements.specialAttack.style = `background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonStatData.base_stat}%, rgba(0,0,0,1) ${pokemonStatData.base_stat}%); `;
                     break;
-                case 'special-defense':
-                    pokemonStatsElements.specialDefense.innerHTML = pokemonstatData.base_stat;
-                    pokemonStatsElements.specialDefense.style = background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonstatData.base_stat}%, rgba(0,0,0,1) ${pokemonstatData.base_stat}%);;
+                case "special-defense":
+                    pokemonStatsElements.specialDefense.innerHTML = pokemonStatData.base_stat;
+                    pokemonStatsElements.specialDefense.style = `background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonStatData.base_stat}%, rgba(0,0,0,1) ${pokemonStatData.base_stat}%); `;
                     break;
-                case 'speed':
-                    pokemonStatsElements.speed.innerHTML = pokemonstatData.base_stat;
-                    pokemonStatsElements.speed.style = background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonstatData.base_stat}%, rgba(0,0,0,1) ${pokemonstatData.base_stat}%);;
+                case "speed":
+                    pokemonStatsElements.speed.innerHTML = pokemonStatData.base_stat;
+                    pokemonStatsElements.speed.style = `background: linear-gradient(0deg, rgba(0,118,255,1) ${pokemonStatData.base_stat}%, rgba(0,0,0,1) ${pokemonStatData.base_stat}%); `;
                     break;
             }
         });
@@ -106,7 +108,7 @@ const pokedex = () => {
     const processPokemonMoves = (pokemonData) => {
         let pokemonMovesContent = "";
         pokemonData.moves?.forEach((pokemonMove) => {
-            pokemonMovesContent += <li>${pokemonMove.move.name}</li>;
+            pokemonMovesContent += `<li>${pokemonMove.move.name}</li>`;
         });
         containers.pokemonMovesElement.innerHTML = pokemonMovesContent;
     };
@@ -114,7 +116,7 @@ const pokedex = () => {
     const processPokemonAbilities = (pokemonData) => {
         let pokemonAbilitiesContent = "";
         pokemonData.abilities?.forEach((pokemonAbility) => {
-            pokemonAbilitiesContent += <li>${pokemonAbility.ability.name}</li>;
+            pokemonAbilitiesContent += `<li>${pokemonAbility.ability.name}</li>`;
         });
         containers.pokemonAbilitiesElement.innerHTML = pokemonAbilitiesContent;
     };
@@ -127,14 +129,14 @@ const pokedex = () => {
     const setLoadingComplete = () => {
         buttons.all.forEach(button => checkDisabled(button));
     };
-    /*/
+    /***********************************************************************************************************/
     // Esta función es la que consulta la pokeapi para obtener la información del pokemon solicitado
     // fetch nos sirve para hacer solicitudes a otros sitios, pero también se puede usar para cargar archivos locales
     // fetch recibe la url del recurso o destino de la petición, y un objeto que nos ayuda a establecer algunos parámetros
     // de la petición, fetch devuelve una promesa, por eso tiene un then y un catch, por otro lado, getPokemonData, devuelve
     // un objeto json con la información del pokemon, o en caso de error, el objeto json contiene el campo que indica que
     // la petición falló https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch
-    const getPokemonData = async (pokemonName) => fetch(${pokeApiUrl}pokemon/${pokemonName}, {
+    const getPokemonData = async (pokemonName) => fetch(`${pokeApiUrl}pokemon/${pokemonName}`, {
         // Existen varios métodos HTTP que sirven, entre otras cosas, para especificar el tipo de petición, pero también
         // son necesarios para enviar adecuadamente sus parámetros https://developer.mozilla.org/es/docs/Web/HTTP/Methods
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -147,8 +149,8 @@ const pokedex = () => {
         // body: JSON.stringify(miObjetoJson)||"" IMPORTANTE:Cuando tu petición use un cuerpo(por ejemplo post y put), debes convertirlo a string
     })
         .then((res) => res.json())
-        .catch((error) => ({ requestFailed: true }));
-    /*/
+        .catch((error) => ({requestFailed: true}));
+    /***********************************************************************************************************/
     // válida si debe deshabilitar los botones o no, en este caso, únicamente el botón inferior, si está en el ID 1,
     // ya que no hay pokemon con ID negativo
     const checkDisabled = (button) => {
