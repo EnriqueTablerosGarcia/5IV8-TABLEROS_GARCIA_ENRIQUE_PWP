@@ -11,7 +11,7 @@
     <section class="half">
         <div class="d-flex center-flex">
             <input type="text" id="pokemonName" class="lcd-input" placeholder="Ingrese el nombre del Pokémon">
-            <input type="hidden" id="pokemonID" value="0">
+            <input type="hidden" id="pokemonId" value="0">
             <button id="btnSearch" class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             <div class="columns-elementos">
                 <button class="btn" id="btnUp"><i class="fa-solid fa-caret-up"></i></button>
@@ -28,7 +28,7 @@
         <h3 id="pokemonNameResult" class="center-flex"></h3>
         <div class="center-flex">
             <div>Tipo de pokemon: </div>
-            <div id="pokemos-types-container"></div>
+            <div id="pokemonTypes"></div>
         </div>
         <table class="pokemon-stat-table">
             <thead>
@@ -46,12 +46,12 @@
             </thead>
             <tbody id="pokemonStats">
 <tr>
-    <td class="pokemon-stat" id="pokemonsStatHp">0</td>
-    <td class="pokemon-stat" id="pokemonsStatAttack">0</td>
-    <td class="pokemon-stat" id="pokemonsStatDefense">0</td>
-    <td class="pokemon-stat" id="pokemonsStatSpecialAttack">0</td>
-    <td class="pokemon-stat" id="pokemonsStatSpecialDefense">0</td>
-    <td class="pokemon-stat" id="pokemonsStatSpeed">0</td>
+    <td class="pokemon-stat" id="pokemonStatHp">0</td>
+    <td class="pokemon-stat" id="pokemonStatAttack">0</td>
+    <td class="pokemon-stat" id="pokemonStatDefense">0</td>
+    <td class="pokemon-stat" id="pokemonStatSpecialAttack">0</td>
+    <td class="pokemon-stat" id="pokemonStatSpecialDefense">0</td>
+    <td class="pokemon-stat" id="pokemonStatSpeed">0</td>
 </tr>
             </tbody>
         </table>
