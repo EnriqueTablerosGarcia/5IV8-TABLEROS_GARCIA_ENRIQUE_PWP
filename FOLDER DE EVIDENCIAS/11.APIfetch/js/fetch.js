@@ -19,8 +19,8 @@ const pokedex = () => {
     // Este objeto simplemente guarda las rutas de imágenes de apoyo que se utilizaran cuando esperemos el resultado de la búsqueda
     // o cuando no se encuentre el pokemon solicitado
     const images = {
-        imgPokemonNotFound: "./img/404.png",
-        imgLoading: "./img/loading.gif",
+        imgPokemonNotFound: "./RecursosAPI/img/404.png",
+        imgLoading: "./RecursosAPI/img/loading.gif",
     };
     // Este objeto contiene las referencias de los elementos que desplegarán la información del pokémon
     const containers = {
