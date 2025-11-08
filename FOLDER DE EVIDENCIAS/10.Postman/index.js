@@ -1,6 +1,6 @@
 //lo va a consumir 
 const express = require('express'); 
-//acabamos jeje 
+//jeje
 
 
 const mirrow = require ('./endpoints/mirrow');
