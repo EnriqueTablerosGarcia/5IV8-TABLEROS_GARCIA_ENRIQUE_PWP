@@ -62,14 +62,14 @@ const eightBallApp = () => {
         elements.answerDisplay.innerHTML = "<span class='loading'>🔮</span>";
         elements.ballContainer.classList.add('shaking');
         buttons.ask.disabled = true;
-        buttons.ask.textContent = "Thinking...";
+        buttons.ask.textContent = "Pensando...";
     };
 
     // Función para quitar el estado de carga
     const setLoadingComplete = () => {
         elements.ballContainer.classList.remove('shaking');
         buttons.ask.disabled = false;
-        buttons.ask.textContent = "Get Your Fortune";
+        buttons.ask.textContent = "Obtener Tu Fortuna";
     };
 
     // Función para animar la bola
@@ -101,7 +101,7 @@ const eightBallApp = () => {
     // Función para actualizar la visualización del historial
     const updateHistoryDisplay = () => {
         if (history.length === 0) {
-            elements.historyContainer.innerHTML = "<p class='no-history'>No fortunes yet. Ask the magic 8-ball a question!</p>";
+            elements.historyContainer.innerHTML = "<p class='no-history'>Aún no hay fortunas. ¡Hazle una pregunta a la bola 8 mágica!</p>";
             return;
         }
 
@@ -111,8 +111,8 @@ const eightBallApp = () => {
                 <div class="history-item">
                     <div class="history-number">${history.length - index}</div>
                     <div class="history-content">
-                        <div class="history-question"><strong>Q:</strong> ${item.question}</div>
-                        <div class="history-answer"><strong>A:</strong> ${item.answer}</div>
+                        <div class="history-question"><strong>P:</strong> ${item.question}</div>
+                        <div class="history-answer"><strong>R:</strong> ${item.answer}</div>
                         <div class="history-timestamp">${item.timestamp} • ${item.locale.toUpperCase()}</div>
                     </div>
                 </div>
@@ -125,12 +125,12 @@ const eightBallApp = () => {
     // Función para limpiar el historial
     const clearHistory = () => {
         Swal.fire({
-            title: "Clear History?",
-            text: "This will delete all your fortune history",
+            title: "¿Limpiar Historial?",
+            text: "Esto eliminará todo tu historial de fortunas",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonText: "Yes, clear it",
-            cancelButtonText: "Cancel",
+            confirmButtonText: "Sí, limpiar",
+            cancelButtonText: "Cancelar",
             confirmButtonColor: "#ef4444",
             cancelButtonColor: "#6b7280"
         }).then((result) => {
@@ -138,8 +138,8 @@ const eightBallApp = () => {
                 history = [];
                 updateHistoryDisplay();
                 Swal.fire({
-                    title: "Cleared!",
-                    text: "Your fortune history has been cleared",
+                    title: "¡Limpiado!",
+                    text: "Tu historial de fortunas ha sido limpiado",
                     icon: "success",
                     timer: 1500,
                     showConfirmButton: false
@@ -155,8 +155,8 @@ const eightBallApp = () => {
 
         if (!question) {
             Swal.fire({
-                title: "No Question!",
-                text: "Please type a question first",
+                title: "¡Sin Pregunta!",
+                text: "Por favor escribe una pregunta primero",
                 icon: "error",
                 confirmButtonText: "OK",
                 confirmButtonColor: "#6366f1"
@@ -180,8 +180,8 @@ const eightBallApp = () => {
             // Si hubo un error en la petición
             elements.answerDisplay.innerHTML = "<span class='error'>❌</span>";
             Swal.fire({
-                title: "Connection Error!",
-                html: "Could not connect to the 8Ball API.<br><br>Please check:<br>• Your internet connection<br>• Try again in a moment",
+                title: "¡Error de Conexión!",
+                html: "No se pudo conectar a la API Bola 8.<br><br>Por favor verifica:<br>• Tu conexión a internet<br>• Activar acceso CORS en el enlace de arriba<br>• Intenta de nuevo en un momento",
                 icon: "error",
                 confirmButtonText: "OK",
                 confirmButtonColor: "#6366f1"
@@ -243,16 +243,16 @@ const eightBallApp = () => {
         // Cambiar idioma
         elements.localeSelect.onchange = () => {
             const languageNames = {
-                'en': 'English',
-                'es': 'Spanish',
-                'fr': 'French',
-                'de': 'German',
-                'it': 'Italian'
+                'en': 'Inglés',
+                'es': 'Español',
+                'fr': 'Francés',
+                'de': 'Alemán',
+                'it': 'Italiano'
             };
             
             Swal.fire({
-                title: "Language Changed",
-                text: `Responses will now be in ${languageNames[elements.localeSelect.value]}`,
+                title: "Idioma Cambiado",
+                text: `Las respuestas ahora serán en ${languageNames[elements.localeSelect.value]}`,
                 icon: "info",
                 timer: 1500,
                 showConfirmButton: false
@@ -271,15 +271,15 @@ window.onload = eightBallApp;
 // CORS Proxy para las demostraciones
 const corsProxyDemo = "https://cors-anywhere.herokuapp.com/";
 
-// Funciones para los botones "Try it" del Quick Start
+// Funciones para los botones "Pruébalo" del Inicio Rápido
 async function tryStep1() {
     const resultDiv = document.getElementById('result1');
     const btn = event.target;
     
     btn.disabled = true;
-    btn.textContent = 'Loading...';
+    btn.textContent = 'Cargando...';
     resultDiv.className = 'step-result loading show';
-    resultDiv.innerHTML = '⏳ Making API call...';
+    resultDiv.innerHTML = '⏳ Haciendo llamada a la API...';
     
     try {
         const response = await fetch(corsProxyDemo + 'https://eightballapi.com/api');
@@ -292,7 +292,7 @@ async function tryStep1() {
         
         resultDiv.className = 'step-result success show';
         resultDiv.innerHTML = `
-            ✅ <strong>Success!</strong> API returned:<br>
+            ✅ <strong>¡Éxito!</strong> La API devolvió:<br>
             <pre>${JSON.stringify(data, null, 2)}</pre>
         `;
         
@@ -304,7 +304,7 @@ async function tryStep1() {
         resultDiv.innerHTML = `❌ <strong>Error:</strong> ${error.message}`;
     } finally {
         btn.disabled = false;
-        btn.textContent = 'Try it ➜';
+        btn.textContent = 'Pruébalo ➜';
     }
 }
 
@@ -313,9 +313,9 @@ async function tryStep2() {
     const btn = event.target;
     
     btn.disabled = true;
-    btn.textContent = 'Loading...';
+    btn.textContent = 'Cargando...';
     resultDiv.className = 'step-result loading show';
-    resultDiv.innerHTML = '⏳ Getting fortune...';
+    resultDiv.innerHTML = '⏳ Obteniendo fortuna...';
     
     try {
         const response = await fetch(corsProxyDemo + 'https://eightballapi.com/api');
@@ -328,7 +328,7 @@ async function tryStep2() {
         
         resultDiv.className = 'step-result success show';
         resultDiv.innerHTML = `
-            ✅ <strong>Your fortune:</strong><br>
+            ✅ <strong>Tu fortuna:</strong><br>
             <div style="font-size: 1.2rem; font-weight: 600; color: #10b981; margin-top: 8px;">
                 "${data.reading}"
             </div>
@@ -340,7 +340,7 @@ async function tryStep2() {
         resultDiv.innerHTML = `❌ <strong>Error:</strong> ${error.message}`;
     } finally {
         btn.disabled = false;
-        btn.textContent = 'Try it ➜';
+        btn.textContent = 'Pruébalo ➜';
     }
 }
 
@@ -349,9 +349,9 @@ async function tryStep3() {
     const btn = event.target;
     
     btn.disabled = true;
-    btn.textContent = 'Loading...';
+    btn.textContent = 'Cargando...';
     resultDiv.className = 'step-result loading show';
-    resultDiv.innerHTML = '⏳ Making API call with locale=es...';
+    resultDiv.innerHTML = '⏳ Haciendo llamada a la API con locale=es...';
     
     try {
         const response = await fetch(corsProxyDemo + 'https://eightballapi.com/api?locale=es');
@@ -364,13 +364,13 @@ async function tryStep3() {
         
         resultDiv.className = 'step-result success show';
         resultDiv.innerHTML = `
-            ✅ <strong>Success!</strong> API returned in Spanish:<br>
+            ✅ <strong>¡Éxito!</strong> La API respondió en español:<br>
             <div style="font-size: 1.2rem; font-weight: 600; color: #10b981; margin-top: 8px;">
                 "${data.reading}"
             </div>
             <pre style="margin-top: 8px;">${JSON.stringify(data, null, 2)}</pre>
             <div style="margin-top: 8px; font-size: 0.9rem; color: #6b7280;">
-                💡 Notice the response is now in Spanish (locale: es)
+                💡 Nota: la respuesta ahora está en español (locale: es)
             </div>
         `;
         
@@ -379,6 +379,6 @@ async function tryStep3() {
         resultDiv.innerHTML = `❌ <strong>Error:</strong> ${error.message}`;
     } finally {
         btn.disabled = false;
-        btn.textContent = 'Try it ➜';
+        btn.textContent = 'Pruébalo ➜';
     }
 }

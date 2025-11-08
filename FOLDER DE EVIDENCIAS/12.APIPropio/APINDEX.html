@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bola 8 / Whitexican</title>
+    <title>Bola 8 - API de Predicciones / Whitexican </title>
     <link rel="stylesheet" href="./css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="shortcut icon" href="./img/EVA.jpeg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/
+    
+    npm/sweetalert2@11"></script>
 </head>
 <body>
     <!-- CORS Notice -->
     <div id="corsNotice" style="background: #fef3c7; border-bottom: 2px solid #f59e0b; padding: 12px 20px; text-align: center; font-size: 0.9rem;">
-        <strong>⚠️ Important:</strong> First, enable CORS access by visiting 
+        <strong>⚠️ Importante:</strong> Primero, habilita el acceso CORS visitando 
         <a href="https://cors-anywhere.herokuapp.com/corsdemo" target="_blank" style="color: #d97706; text-decoration: underline; font-weight: 600;">
             https://cors-anywhere.herokuapp.com/corsdemo
         </a> 
-        and clicking "Request temporary access to the demo server"
+        y haciendo clic en "Request temporary access to the demo server"
     </div>
 
     <!-- Hero Section -->
@@ -22,15 +25,15 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1 class="hero-title">8Ball API: Magic 8-Ball Fortune Telling</h1>
+                    <h1 class="hero-title">API Bola 8 Mágica: Predicciones Místicas</h1>
                     <p class="hero-description">
-                        Add mystical fortune telling to your apps with our RESTful API. Integrate seamlessly 
-                        with Discord bots, games, web apps, and more. Simple, reliable, and ready to use in minutes.
+                        Agrega predicciones místicas a tus aplicaciones con nuestra API RESTful. Intégrala fácilmente 
+                        con bots de Discord, juegos, aplicaciones web y más. Simple, confiable y lista para usar en minutos.
                     </p>
                     <div class="hero-badges">
-                        <span class="badge">No API Key Required</span>
-                        <span class="badge">Multiple Languages</span>
-                        <span class="badge">Free to Use</span>
+                        <span class="badge">Sin Clave API Requerida</span>
+                        <span class="badge">Múltiples Idiomas</span>
+                        <span class="badge">Uso Gratuito</span>
                     </div>
                 </div>
                 
@@ -40,7 +43,7 @@
                             type="text" 
                             id="questionInput" 
                             class="question-input" 
-                            placeholder="Ask me anything...">
+                            placeholder="Pregúntame lo que quieras...">
                         
                         <div id="ballContainer" class="ball-container">
                             <div class="magic-ball">
@@ -51,15 +54,15 @@
                             </div>
                         </div>
                         
-                        <button id="btnAsk" class="btn btn-primary">Get Your Fortune</button>
+                        <button id="btnAsk" class="btn btn-primary">Obtener Tu Fortuna</button>
                         
                         <div class="locale-selector">
-                            <label for="localeSelect">Language:</label>
+                            <label for="localeSelect">Idioma:</label>
                             <select id="localeSelect" class="locale-select">
-                                <option value="en">English</option>
-                                <option value="es">Español</option>
-                                <option value="fr">Français</option>
-                                <option value="de">Deutsch</option>
+                                <option value="en">Inglés</option>
+                                <option value="es" selected>Español</option>
+                                <option value="fr">Francés</option>
+                                <option value="de">Alemán</option>
                                 <option value="it">Italiano</option>
                             </select>
                         </div>
@@ -72,29 +75,29 @@
     <!-- Real-World Examples Section -->
     <section class="examples-section">
         <div class="container">
-            <h2 class="section-title">Real-World Examples</h2>
-            <h3 class="section-subtitle">How Developers Are Using 8Ball API</h3>
+            <h2 class="section-title">Ejemplos del Mundo Real</h2>
+            <h3 class="section-subtitle">Cómo los Desarrolladores Usan la API Bola 8</h3>
             
             <div class="examples-grid">
                 <div class="example-card">
                     <div class="example-icon">💬</div>
-                    <h4>Discord & Chat Bots</h4>
-                    <p>Power your chat bots with fortune-telling capabilities in seconds. With just one API call, 
-                       create entertaining commands like /8ball that keep users engaged and coming back.</p>
+                    <h4>Bots de Discord y Chat</h4>
+                    <p>Potencia tus bots de chat con capacidades de predicción en segundos. Con solo una llamada a la API, 
+                       crea comandos entretenidos como /8ball que mantendrán a los usuarios comprometidos.</p>
                 </div>
                 
                 <div class="example-card">
                     <div class="example-icon">🎮</div>
-                    <h4>Game Integrations</h4>
-                    <p>Add randomized fortune-telling elements to your games with our sentiment-based responses. 
-                       Create mysterious NPCs, fortune tellers, or decision-making mechanics.</p>
+                    <h4>Integraciones de Juegos</h4>
+                    <p>Agrega elementos de predicción aleatorizados a tus juegos con respuestas basadas en sentimientos. 
+                       Crea NPCs misteriosos, adivinos o mecánicas de toma de decisiones.</p>
                 </div>
                 
                 <div class="example-card">
                     <div class="example-icon">✨</div>
-                    <h4>Creative Applications</h4>
-                    <p>From decision-making tools to writing prompts, our API enables creative applications of 
-                       all kinds. Perfect for educational projects teaching API concepts.</p>
+                    <h4>Aplicaciones Creativas</h4>
+                    <p>Desde herramientas de toma de decisiones hasta indicaciones de escritura, nuestra API habilita aplicaciones 
+                       creativas de todo tipo. Perfecta para proyectos educativos que enseñan conceptos de API.</p>
                 </div>
             </div>
         </div>
@@ -103,8 +106,8 @@
     <!-- API Documentation Section -->
     <section class="api-section">
         <div class="container">
-            <h2 class="section-title">Simple to implement, powerful to use</h2>
-            <p class="section-description">Our API is RESTful and returns JSON, making it easy to integrate with any application.</p>
+            <h2 class="section-title">Simple de implementar, poderosa de usar</h2>
+            <p class="section-description">Nuestra API es RESTful y devuelve JSON, facilitando la integración con cualquier aplicación.</p>
             
             <div class="api-endpoints">
                 <div class="endpoint-card">
@@ -112,7 +115,7 @@
                         <span class="method get">GET</span>
                         <code>/api</code>
                     </div>
-                    <p>Returns a plain text Magic 8-Ball response.</p>
+                    <p>Devuelve una respuesta en texto plano de la Bola 8 Mágica.</p>
                 </div>
                 
                 <div class="endpoint-card">
@@ -120,7 +123,7 @@
                         <span class="method post">POST</span>
                         <code>/api/biased</code>
                     </div>
-                    <p>Returns a biased response based on the sentiment of the question.</p>
+                    <p>Devuelve una respuesta sesgada basada en el sentimiento de la pregunta.</p>
                 </div>
                 
                 <div class="endpoint-card">
@@ -128,37 +131,37 @@
                         <span class="method get">GET</span>
                         <code>/api/categories</code>
                     </div>
-                    <p>Returns all responses grouped by category (positive, negative, neutral).</p>
+                    <p>Devuelve todas las respuestas agrupadas por categoría (positivo, negativo, neutral).</p>
                 </div>
             </div>
             
             <div class="quick-start">
-                <h3>Quick Start</h3>
+                <h3>Inicio Rápido</h3>
                 <div class="steps">
                     <div class="step step-interactive" id="step1">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <h4>Make a simple API call</h4>
+                            <h4>Haz una llamada simple a la API</h4>
                             <code class="api-url">GET https://eightballapi.com/api</code>
-                            <button class="btn-try" onclick="tryStep1()">Try it ➜</button>
+                            <button class="btn-try" onclick="tryStep1()">Pruébalo ➜</button>
                             <div class="step-result" id="result1"></div>
                         </div>
                     </div>
                     <div class="step step-interactive" id="step2">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <h4>Get your fortune</h4>
-                            <code class="api-response" id="fortune2">"It is decidedly so."</code>
-                            <button class="btn-try" onclick="tryStep2()">Try it ➜</button>
+                            <h4>Obtén tu fortuna</h4>
+                            <code class="api-response" id="fortune2">"Definitivamente es así."</code>
+                            <button class="btn-try" onclick="tryStep2()">Pruébalo ➜</button>
                             <div class="step-result" id="result2"></div>
                         </div>
                     </div>
                     <div class="step step-interactive" id="step3">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <h4>Add parameters for more control</h4>
+                            <h4>Agrega parámetros para más control</h4>
                             <code class="api-url">GET https://eightballapi.com/api?locale=es</code>
-                            <button class="btn-try" onclick="tryStep3()">Try it ➜</button>
+                            <button class="btn-try" onclick="tryStep3()">Pruébalo ➜</button>
                             <div class="step-result" id="result3"></div>
                         </div>
                     </div>
@@ -170,11 +173,11 @@
     <!-- History Section -->
     <section class="history-section">
         <div class="container">
-            <h2 class="section-title">Your Fortune History</h2>
+            <h2 class="section-title">Tu Historial de Fortunas</h2>
             <div id="historyContainer" class="history-container">
-                <p class="no-history">No fortunes yet. Ask the magic 8-ball a question!</p>
+                <p class="no-history">Aún no hay fortunas. ¡Hazle una pregunta a la bola 8 mágica!</p>
             </div>
-            <button id="btnClearHistory" class="btn btn-secondary">Clear History</button>
+            <button id="btnClearHistory" class="btn btn-secondary">Limpiar Historial</button>
         </div>
     </section>
 
@@ -184,14 +187,14 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <div class="footer-logo">🎱</div>
-                    <p>8Ball API</p>
-                    <p class="footer-copy">© 2025 8Ball API. Free for everyone, forever.</p>
+                    <p>API Bola 8</p>
+                    <p class="footer-copy">© 2025 API Bola 8. Gratis para todos, para siempre.</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Additional Links</h4>
+                    <h4>Enlaces Adicionales</h4>
                     <ul>
-                        <li><a href="https://www.eightballapi.com/">Home</a></li>
-                        <li><a href="https://www.eightballapi.com/docs">Docs</a></li>
+                        <li><a href="https://www.eightballapi.com/">Inicio</a></li>
+                        <li><a href="https://www.eightballapi.com/docs">Documentación</a></li>
                         <li><a href="https://www.eightballapi.com/playground">Playground</a></li>
                         <li><a href="https://github.com/jacobschwantes/eight-ball-api">GitHub</a></li>
                     </ul>
