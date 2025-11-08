@@ -1,16 +1,27 @@
 function validarn(e) {
     var teclado = (document.all) ? e.keyCode : e.which;
-    if (teclado == 8) return true;
+    if (teclado == 8) return true; // backspace
+    if (teclado == 13) return true; // enter
 
-    var patron = /[0-9\d]/;
+    var patron = /[0-9]/;
     var codigo = String.fromCharCode(teclado);
     return patron.test(codigo);
 }
 
 function calcularPorcentajes() {
-    var hombres = parseInt(document.getElementById("hombres").value);
-    var mujeres = parseInt(document.getElementById("mujeres").value);
+    var hombresVal = document.getElementById("hombres").value.trim();
+    var mujeresVal = document.getElementById("mujeres").value.trim();
 
+    // Validar campos vacíos
+    if (hombresVal === "" || mujeresVal === "") {
+        alert("Por favor complete todos los campos.");
+        return;
+    }
+
+    var hombres = parseInt(hombresVal);
+    var mujeres = parseInt(mujeresVal);
+
+    // Validar números
     if (isNaN(hombres) || isNaN(mujeres) || (hombres < 0) || (mujeres < 0)) {
         alert("Por favor, ingresa valores válidos para hombres y mujeres.");
         return;
@@ -18,6 +29,7 @@ function calcularPorcentajes() {
 
     var total = hombres + mujeres;
 
+    // Validar que el total no sea 0
     if (total === 0) {
         alert("El grupo no puede tener 0 estudiantes.");
         return;
@@ -35,4 +47,5 @@ function borrarDatos() {
     document.getElementById("mujeres").value = "";
     document.getElementById("porcH").value = "";
     document.getElementById("porcM").value = "";
+    document.getElementById("hombres").focus();
 }

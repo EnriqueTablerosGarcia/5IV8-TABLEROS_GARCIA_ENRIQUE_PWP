@@ -1,18 +1,29 @@
 
 function validarn(e) {
     var teclado = (document.all) ? e.keyCode : e.which;
-    if (teclado == 8) return true; 
+    if (teclado == 8) return true; // backspace
+    if (teclado == 13) return true; // enter
     var patron = /[0-9.]/;
     var codigo = String.fromCharCode(teclado);
     return patron.test(codigo);
 }
 
 function interes() {
-    var valor = document.getElementById("cantidadi").value;
+    var valor = document.getElementById("cantidadi").value.trim();
+    
+    // Validar que el campo no esté vacío
+    if (valor === "") {
+        alert("Por favor ingrese una cantidad.");
+        document.getElementById("cantidadi").focus();
+        return;
+    }
+
     var parseo = parseFloat(valor);
 
+    // Validar cantidad
     if (isNaN(parseo) || parseo <= 0) {
-        alert("Por favor ingrese una cantidad válida.");
+        alert("Por favor ingrese una cantidad válida mayor a 0.");
+        document.getElementById("cantidadi").focus();
         return;
     }
 
@@ -26,7 +37,9 @@ function interes() {
 function borrari() {
     document.getElementById("saldoi").value = "";
     document.getElementById("cantidadi").value = "";
+    document.getElementById("cantidadi").focus();
 }
+
 
 //Del ejercicio 1, tenemos que agregar el campo numero de meses y sera una imversion de maximo 18 meses 
 

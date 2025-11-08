@@ -1,7 +1,8 @@
 
 function validarn(e) {
     var teclado = (document.all) ? e.keyCode : e.which;
-    if (teclado == 8) return true; 
+    if (teclado == 8) return true; // backspace
+    if (teclado == 13) return true; // enter
     var patron = /[0-9.]/;
     var codigo = String.fromCharCode(teclado);
     return patron.test(codigo);
@@ -9,19 +10,29 @@ function validarn(e) {
 
 
 function interes() {
-    var valor = document.getElementById("cantidadi").value;
-    var meses = document.getElementById("mesesi").value;
+    var valor = document.getElementById("cantidadi").value.trim();
+    var meses = document.getElementById("mesesi").value.trim();
+
+    // Validar que los campos no estén vacíos
+    if (valor === "" || meses === "") {
+        alert("Por favor complete todos los campos.");
+        return;
+    }
 
     var capital = parseFloat(valor);
     var numMeses = parseInt(meses);
 
+    // Validar cantidad
     if (isNaN(capital) || capital <= 0) {
-        alert("Por favor ingrese una cantidad válida.");
+        alert("Por favor ingrese una cantidad válida mayor a 0.");
+        document.getElementById("cantidadi").focus();
         return;
     }
 
+    // Validar meses (entre 1 y 12)
     if (isNaN(numMeses) || numMeses < 1 || numMeses > 12) {
         alert("Por favor ingrese un número de meses entre 1 y 12.");
+        document.getElementById("mesesi").focus();
         return;
     }
 
@@ -37,7 +48,9 @@ function borrari() {
     document.getElementById("saldoi").value = "";
     document.getElementById("cantidadi").value = "";
     document.getElementById("mesesi").value = "";
+    document.getElementById("cantidadi").focus();
 }
+
 
 
 
