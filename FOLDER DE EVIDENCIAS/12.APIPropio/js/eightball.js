@@ -1,6 +1,8 @@
 // Esta es una API REST de la bola 8 mágica que nos permite obtener respuestas a preguntas
 // puedes ver la documentación en https://eightballapi.com/
-const eightBallApiUrl = "https://eightballapi.com/api";
+// Usando CORS Anywhere proxy para evitar problemas de CORS
+const corsProxy = "https://cors-anywhere.herokuapp.com/";
+const eightBallApiUrl = corsProxy + "https://eightballapi.com/api";
 
 const eightBallApp = () => {
     // Referencias a los elementos del DOM
@@ -266,6 +268,9 @@ const eightBallApp = () => {
 // Ejecutar cuando la página se cargue
 window.onload = eightBallApp;
 
+// CORS Proxy para las demostraciones
+const corsProxyDemo = "https://cors-anywhere.herokuapp.com/";
+
 // Funciones para los botones "Try it" del Quick Start
 async function tryStep1() {
     const resultDiv = document.getElementById('result1');
@@ -277,7 +282,7 @@ async function tryStep1() {
     resultDiv.innerHTML = '⏳ Making API call...';
     
     try {
-        const response = await fetch('https://eightballapi.com/api');
+        const response = await fetch(corsProxyDemo + 'https://eightballapi.com/api');
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
@@ -313,7 +318,7 @@ async function tryStep2() {
     resultDiv.innerHTML = '⏳ Getting fortune...';
     
     try {
-        const response = await fetch('https://eightballapi.com/api');
+        const response = await fetch(corsProxyDemo + 'https://eightballapi.com/api');
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
@@ -349,7 +354,7 @@ async function tryStep3() {
     resultDiv.innerHTML = '⏳ Making API call with locale=es...';
     
     try {
-        const response = await fetch('https://eightballapi.com/api?locale=es');
+        const response = await fetch(corsProxyDemo + 'https://eightballapi.com/api?locale=es');
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
