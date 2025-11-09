@@ -90,7 +90,7 @@ function problema3() {
 
   // Validar campos vacíos
   if (horasVal === "" || salarioVal === "") {
-    document.getElementById("p3-output").textContent = "❌ Por favor ingresa las horas y el salario por hora.";
+    document.getElementById("p3-output").textContent = " Por favor ingresa las horas y el salario por hora.";
     if (horasVal === "") document.getElementById("p3-horas").focus();
     else document.getElementById("p3-salario").focus();
     return;
@@ -101,13 +101,13 @@ function problema3() {
 
   // Validar números válidos
   if (isNaN(horas) || isNaN(salario)) {
-    document.getElementById("p3-output").textContent = "❌ Por favor ingresa valores numéricos válidos.";
+    document.getElementById("p3-output").textContent = " Por favor ingresa valores numéricos válidos.";
     return;
   }
 
   // Validar valores positivos
   if (horas < 0 || salario < 0) {
-    document.getElementById("p3-output").textContent = "❌ Las horas y el salario deben ser valores positivos.";
+    document.getElementById("p3-output").textContent = " Las horas y el salario deben ser valores positivos.";
     return;
   }
 
@@ -132,7 +132,7 @@ function problema3() {
     }
   }
 
-  var detalle = `✅ Pago total: $${pagoTotal.toFixed(2)}\n\nDesglose:\n`;
+  var detalle = ` Pago total: $${pagoTotal.toFixed(2)}\n\nDesglose:\n`;
   detalle += `- Horas normales (${horasNormales}h): $${(horasNormales * salario).toFixed(2)}\n`;
   if (horasDobles > 0) detalle += `- Horas extras x2 (${horasDobles}h): $${(horasDobles * salario * 2).toFixed(2)}\n`;
   if (horasTriples > 0) detalle += `- Horas extras x3 (${horasTriples}h): $${(horasTriples * salario * 3).toFixed(2)}`;
@@ -147,7 +147,7 @@ function problema4() {
 
     // Validar campos vacíos
     if (salarioVal === "" || antiguedadVal === "") {
-        document.getElementById("p4-output").textContent = "❌ Por favor ingresa el salario y la antigüedad.";
+        document.getElementById("p4-output").textContent = " Por favor ingresa el salario y la antigüedad.";
         if (salarioVal === "") document.getElementById("p4-salario").focus();
         else document.getElementById("p4-antiguedad").focus();
         return;
@@ -158,13 +158,13 @@ function problema4() {
 
     // Validar números válidos
     if (isNaN(salario) || isNaN(antiguedad)) {
-        document.getElementById("p4-output").textContent = "❌ Por favor ingresa valores numéricos válidos.";
+        document.getElementById("p4-output").textContent = " Por favor ingresa valores numéricos válidos.";
         return;
     }
 
     // Validar valores positivos
     if (salario < 0 || antiguedad < 0) {
-        document.getElementById("p4-output").textContent = "❌ El salario y la antigüedad deben ser valores positivos.";
+        document.getElementById("p4-output").textContent = " El salario y la antigüedad deben ser valores positivos.";
         return;
     }
 
@@ -191,7 +191,7 @@ function problema4() {
     var utilidad = salario * porcentaje;
 
     document.getElementById("p4-output").textContent = 
-        `✅ La utilidad anual es: $${utilidad.toFixed(2)}\n\nDetalles:\n` +
+        ` La utilidad anual es: $${utilidad.toFixed(2)}\n\nDetalles:\n` +
         `- Salario mensual: $${salario.toFixed(2)}\n` +
         `- Antigüedad: ${antiguedad} años (${rango})\n` +
         `- Porcentaje aplicado: ${(porcentaje * 100).toFixed(0)}%`;

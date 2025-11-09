@@ -47,7 +47,7 @@ function calcularFinal() {
 
     // Mensajes según calificación
     if (calificacionFinal < 6) {
-        alert("Ya no carnal Pulpo😭");
+        alert("Ya no carnal Pulpo");
     } else if (calificacionFinal >= 7) {
         alert("mondongo");
     } else {
