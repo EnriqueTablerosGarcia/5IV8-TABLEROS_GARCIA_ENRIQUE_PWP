@@ -148,10 +148,73 @@ ul li a:hover {
 
 /* Container principal */
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 2rem auto;
     padding: 1rem;
 }
+
+/* Gallery styles */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+    padding: 20px;
+}
+
+.image-container {
+    background: #23233a;
+    border: 3px solid #6c3483;
+    border-radius: 16px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 4px 16px rgba(108, 52, 131, 0.3);
+}
+
+.image-container:hover {
+    transform: translateY(-8px);
+    border-color: #39ff14;
+    box-shadow: 0 8px 32px rgba(57, 255, 20, 0.4);
+}
+
+.image-container h3 {
+    color: #ffbe00;
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #39ff14;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.image-container img:hover {
+    transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 10px;
+    }
+    
+    .image-container {
+        padding: 15px;
+    }
+    
+    .image-container h3 {
+        font-size: 1.5rem;
+    }
+}
+
 
 /* Problema containers */
 .problema-container {
