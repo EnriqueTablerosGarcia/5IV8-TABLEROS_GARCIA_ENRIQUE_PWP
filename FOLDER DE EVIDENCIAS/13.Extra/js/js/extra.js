@@ -1,9 +1,7 @@
-
 function memoize(fn) {
     // Map principal para el arreglo y guardar cache
     const cache = new Map();
-    
-    return function(...args) {
+        return function(...args) {
         // Nodo actual en el árbol de caché
         let currentNode = cache;
         
@@ -30,7 +28,6 @@ function memoize(fn) {
         const result = fn(...args);
         // Guardamos el resultado en el caché
         currentNode.set(lastArg, result);
-        
-        return result;
+                return result;
     };
 }
