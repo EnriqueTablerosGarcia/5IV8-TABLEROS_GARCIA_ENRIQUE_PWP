@@ -2,7 +2,7 @@ function memoize(fn) {
     // Map principal para el arreglo y guardar cache
     const cache = new Map();
         return function(...args) {
-        // Nodo actual en el árbol de caché
+        // Nodo actual
         let currentNode = cache;
         
         // Nav usando cada argumento como clave
