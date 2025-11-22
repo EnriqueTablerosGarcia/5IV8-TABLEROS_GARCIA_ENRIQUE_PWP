@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Estudiantes</title>
+    <link rel="icon" type="image/x-icon" href="./IMG/EVA.jpeg">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <h1>Registro de Estudiantes</h1>
@@ -18,13 +20,18 @@
     </form>
 
     <ul>
-        <% estudiantes.forEach(function(estudiante) => { %>
+        <% estudiantes.forEach(function(estudiante){ %>
             <li><strong><%= estudiante.nombre %></strong> (Edad: <%= estudiante.edad %>, Curso: <%= estudiante.curso %>)
             <a href="/estudiantes/edit/<%= estudiante.id %>">Editar</a>
             <a href="/estudiantes/delete/<%= estudiante.id %>">Eliminar</a>
-            </li>
-        <% }) %>
+            </li> 
+        <% }); %>
     </ul>
-    
+    <div class="container-footer">
+        <footer>
+              <a href="../../index.html" class="footer-link">Volver al menú de Prácticas TGE</a>
+        </footer>
+    </div>
 </body>
-</html>
+</html>    
+      

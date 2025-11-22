@@ -8,18 +8,18 @@ const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
+require('dotenv').config({path: './.env'});
 
 const app = express();
 const port = 3000;
 
 //configuracion de mysql
 const bd = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Karl!2008',
-    database: 'estudiantescecyt'
+    host: process.env.BD_HOST,
+    user: process.env.BD_USER,
+    password: process.env.BD_PASSWORD,
+    database: process.env.BD_NAME
 });
-
 bd.connect((error) => {
     if (error) {
         console.log('Error de conexion a la base de datos: ' + error);
@@ -50,26 +50,70 @@ app.get('/', (req, res)=>{
         if(error){
             console.log('Error al obtener los estudiantes: ' + error);
             res.status(500).send('Error al obtener los estudiantes');
+        } else {
+            res.render('index', { estudiantes: resultados });
         }
-        res.render('index', { estudiantes: resultados });
-        
     });
 });
 
 //ruta para crear un estudiante
 app.post('/estudiantes', (req, res) => {
     //obtener los parametros del formulario
-    const { nombre, edad, carrera } = req.body;
-    const querry = `INSERT INTO estudiantes (nombre, edad, carrera) VALUES ('${nombre}', ${edad}, '${carrera}')";`;
+    const { nombre, edad, curso } = req.body;
+    const querry = `INSERT INTO estudiantes (nombre, edad, curso) VALUES ('${nombre}', ${edad}, '${curso}');`;
     bd.query(querry, (error, resultados) => {
         if (error) {
             console.log('Error al crear el estudiante: ' + error);
             res.status(500).send('Error al crear el estudiante');
+        } else {
+            res.redirect('/');
         }
-        res.redirect('/');
     });
 });
 
+//ruta para eliminar el estudiante
+
+app.get('/estudiantes/delete/:id', (req, res) => {
+    const estudianteid = req.params.id;
+    const querry = `DELETE FROM estudiantes WHERE id = ${estudianteid};`;
+
+    bd.query(querry, (error, resultados) => {
+        if (error) {
+            console.log('Error al eliminar el estudiante: ' + error);
+            res.status(500).send('Error al eliminar el estudiante');
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+
+//ruta para buscar y actualizar
+app.get('/estudiantes/edit/:id', (req, res) => {
+    const estudianteid = req.params.id;
+    const querry = `SELECT * FROM estudiantes WHERE id = ${estudianteid};`;
+    bd.query(querry, (error, resultados) => {
+        if (error) {
+            console.log('Error al obtener el estudiante: ' + error);
+            res.status(500).send('Error al obtener el estudiante');
+        } else {
+            res.render('edit', { estudiante: resultados[0] });
+        }
+    });
+});
+
+app.post('/estudiantes/update/:id', (req, res) => {
+    const estudianteid = req.params.id;
+    const { nombre, edad, curso } = req.body;
+    const querry = `UPDATE estudiantes SET nombre='${nombre}', edad=${edad}, curso='${curso}' WHERE id=${estudianteid};`;
+    bd.query(querry, (error, resultados) => {
+        if (error) {
+            console.log('Error al actualizar el estudiante: ' + error);
+            res.status(500).send('Error al actualizar el estudiante');
+        } else {
+            res.redirect('/');
+        }
+    });
+});
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
