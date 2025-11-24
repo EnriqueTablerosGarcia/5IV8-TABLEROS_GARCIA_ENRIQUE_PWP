@@ -1,0 +1,23 @@
+{
+  "name": "bitacora-calibracion",
+  "version": "1.0.0",
+  "description": "CRUD para Bitácora de Calibración de Instrumentos",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": ["crud", "mysql", "express", "ejs"],
+  "author": "Tableros Garcia Enrique",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

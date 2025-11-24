@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitácora de Calibración</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo-principal">BITÁCORA DE CALIBRACIÓN</h1>
+        
+        <div class="formulario-container">
+            <h2>Nuevo Registro de Calibración</h2>
+            <form action="/instrumentos" method="POST" class="formulario">
+                <div class="form-group">
+                    <label for="id_instrumento">ID Instrumento/Sensor:</label>
+                    <input type="text" id="id_instrumento" name="id_instrumento" required placeholder="Ej: Termómetro PT-100">
+                </div>
+
+                <div class="form-group">
+                    <label for="ultima_calibracion">Última Calibración:</label>
+                    <input type="date" id="ultima_calibracion" name="ultima_calibracion" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha_calibracion_actual">Fecha Calibración Actual:</label>
+                    <input type="date" id="fecha_calibracion_actual" name="fecha_calibracion_actual" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="estandar_referencia">Estándar de Referencia:</label>
+                    <input type="text" id="estandar_referencia" name="estandar_referencia" required placeholder="Ej: Patrón Nacional CENAM">
+                </div>
+
+                <div class="form-group">
+                    <label for="lectura_antes">Lectura Antes:</label>
+                    <input type="text" id="lectura_antes" name="lectura_antes" required placeholder="Ej: 10.2°C">
+                </div>
+
+                <div class="form-group">
+                    <label for="lectura_despues">Lectura Después:</label>
+                    <input type="text" id="lectura_despues" name="lectura_despues" required placeholder="Ej: 10.0°C">
+                </div>
+
+                <div class="form-group">
+                    <label for="certificado_asociado">Certificado Asociado:</label>
+                    <input type="text" id="certificado_asociado" name="certificado_asociado" required placeholder="Ej: CERT-2024-001">
+                </div>
+
+                <div class="form-group">
+                    <label for="proxima_calibracion">Próxima Calibración:</label>
+                    <input type="date" id="proxima_calibracion" name="proxima_calibracion" required>
+                </div>
+
+                <button type="submit" class="btn btn-guardar">GUARDAR REGISTRO</button>
+            </form>
+        </div>
+
+        <div class="lista-container">
+            <h2>Registros de Calibración</h2>
+            <div class="tabla-wrapper">
+                <table class="tabla-instrumentos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Instrumento</th>
+                            <th>Última Calibración</th>
+                            <th>Calibración Actual</th>
+                            <th>Estándar</th>
+                            <th>Lectura Antes</th>
+                            <th>Lectura Después</th>
+                            <th>Certificado</th>
+                            <th>Próxima Calibración</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(instrumentos.length > 0) { %>
+                            <% instrumentos.forEach(function(instrumento) { %>
+                                <tr>
+                                    <td><%= instrumento.id %></td>
+                                    <td><%= instrumento.id_instrumento %></td>
+                                    <td><%= new Date(instrumento.ultima_calibracion).toLocaleDateString('es-MX') %></td>
+                                    <td><%= new Date(instrumento.fecha_calibracion_actual).toLocaleDateString('es-MX') %></td>
+                                    <td><%= instrumento.estandar_referencia %></td>
+                                    <td><%= instrumento.lectura_antes %></td>
+                                    <td><%= instrumento.lectura_despues %></td>
+                                    <td><%= instrumento.certificado_asociado %></td>
+                                    <td><%= new Date(instrumento.proxima_calibracion).toLocaleDateString('es-MX') %></td>
+                                    <td class="acciones">
+                                        <a href="/instrumentos/edit/<%= instrumento.id %>" class="btn btn-editar">Editar</a>
+                                        <a href="/instrumentos/delete/<%= instrumento.id %>" class="btn btn-eliminar" onclick="return confirm('¿Estás seguro de eliminar este registro?')">Eliminar</a>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="10" class="sin-datos">No hay registros de calibración</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,261 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #181828 0%, #23233a 100%);
+    color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.titulo-principal {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    background: linear-gradient(90deg, #6c3483, #39ff14);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+    letter-spacing: 2px;
+}
+
+.formulario-container {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #6c3483;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 20px rgba(108, 52, 131, 0.3);
+}
+
+.formulario-container h2 {
+    color: #39ff14;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    color: #ffbe00;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 2px solid #6c3483;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #39ff14;
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.btn-guardar {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #6c3483, #39ff14);
+    color: #fff;
+    margin-top: 10px;
+}
+
+.btn-guardar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(57, 255, 20, 0.4);
+}
+
+.btn-volver {
+    background: linear-gradient(135deg, #ffbe00, #6c3483);
+    color: #fff;
+}
+
+.btn-volver:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 190, 0, 0.4);
+}
+
+.botones-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    grid-column: 1 / -1;
+    margin-top: 10px;
+}
+
+.lista-container {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #6c3483;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(108, 52, 131, 0.3);
+}
+
+.lista-container h2 {
+    color: #39ff14;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.tabla-wrapper {
+    overflow-x: auto;
+}
+
+.tabla-instrumentos {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabla-instrumentos thead {
+    background: linear-gradient(135deg, #6c3483, #39ff14);
+}
+
+.tabla-instrumentos th {
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+    color: #fff;
+    border-bottom: 2px solid #39ff14;
+}
+
+.tabla-instrumentos td {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.tabla-instrumentos tbody tr {
+    transition: all 0.3s ease;
+}
+
+.tabla-instrumentos tbody tr:hover {
+    background: rgba(57, 255, 20, 0.1);
+    transform: scale(1.01);
+}
+
+.acciones {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-editar {
+    background: linear-gradient(135deg, #ffbe00, #6c3483);
+    color: #fff;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+}
+
+.btn-editar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 190, 0, 0.4);
+}
+
+.btn-eliminar {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: #fff;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+}
+
+.btn-eliminar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+.sin-datos {
+    text-align: center;
+    color: #ffbe00;
+    font-style: italic;
+    padding: 30px !important;
+}
+
+@media (max-width: 768px) {
+    .titulo-principal {
+        font-size: 1.8rem;
+    }
+
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+
+    .tabla-instrumentos {
+        font-size: 0.85rem;
+    }
+
+    .tabla-instrumentos th,
+    .tabla-instrumentos td {
+        padding: 10px;
+    }
+
+    .acciones {
+        flex-direction: column;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo-principal {
+        font-size: 1.5rem;
+    }
+
+    .formulario-container,
+    .lista-container {
+        padding: 20px;
+    }
+
+    .tabla-instrumentos {
+        font-size: 0.75rem;
+    }
+}

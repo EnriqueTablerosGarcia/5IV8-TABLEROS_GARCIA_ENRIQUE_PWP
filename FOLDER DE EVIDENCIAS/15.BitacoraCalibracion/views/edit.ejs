@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Registro - Bitácora de Calibración</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo-principal">EDITAR REGISTRO DE CALIBRACIÓN</h1>
+        
+        <div class="formulario-container">
+            <form action="/instrumentos/update/<%= instrumento.id %>" method="POST" class="formulario">
+                <div class="form-group">
+                    <label for="id_instrumento">ID Instrumento/Sensor:</label>
+                    <input type="text" id="id_instrumento" name="id_instrumento" value="<%= instrumento.id_instrumento %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ultima_calibracion">Última Calibración:</label>
+                    <input type="date" id="ultima_calibracion" name="ultima_calibracion" value="<%= instrumento.ultima_calibracion.toISOString().split('T')[0] %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha_calibracion_actual">Fecha Calibración Actual:</label>
+                    <input type="date" id="fecha_calibracion_actual" name="fecha_calibracion_actual" value="<%= instrumento.fecha_calibracion_actual.toISOString().split('T')[0] %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="estandar_referencia">Estándar de Referencia:</label>
+                    <input type="text" id="estandar_referencia" name="estandar_referencia" value="<%= instrumento.estandar_referencia %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lectura_antes">Lectura Antes:</label>
+                    <input type="text" id="lectura_antes" name="lectura_antes" value="<%= instrumento.lectura_antes %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lectura_despues">Lectura Después:</label>
+                    <input type="text" id="lectura_despues" name="lectura_despues" value="<%= instrumento.lectura_despues %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="certificado_asociado">Certificado Asociado:</label>
+                    <input type="text" id="certificado_asociado" name="certificado_asociado" value="<%= instrumento.certificado_asociado %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="proxima_calibracion">Próxima Calibración:</label>
+                    <input type="date" id="proxima_calibracion" name="proxima_calibracion" value="<%= instrumento.proxima_calibracion.toISOString().split('T')[0] %>" required>
+                </div>
+
+                <div class="botones-container">
+                    <button type="submit" class="btn btn-guardar">ACTUALIZAR REGISTRO</button>
+                    <a href="/" class="btn btn-volver">VOLVER</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
