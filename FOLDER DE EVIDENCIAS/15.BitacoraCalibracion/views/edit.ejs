@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Registro - Bitácora de Calibración</title>
     <link rel="stylesheet" href="/style.css">
+    <style>
+        .campo-error {
+            border: 3px solid #ff0000 !important;
+            background-color: transparent !important;
+        }
+        .campo-error:focus {
+            outline: 3px solid #ff0000 !important;
+            background-color: transparent !important;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -98,9 +108,26 @@
             return certRegex.test(certificado.trim());
         }
         
+        // Función para marcar campo con error
+        function marcarError(campoId, mensaje) {
+            const campo = document.getElementById(campoId);
+            campo.classList.add('campo-error');
+            campo.focus();
+            alert('ERROR EN ' + campo.placeholder + ':\n\n' + mensaje);
+            return false;
+        }
+        
+        // Función para limpiar marcas de error
+        function limpiarErrores() {
+            document.querySelectorAll('.campo-error').forEach(campo => {
+                campo.classList.remove('campo-error');
+            });
+        }
+        
         // Validar formulario
         document.querySelector('.formulario').addEventListener('submit', function(e) {
-            const errores = [];
+            e.preventDefault();
+            limpiarErrores();
             
             const id_instrumento = document.getElementById('id_instrumento').value;
             const estandar_referencia = document.getElementById('estandar_referencia').value;
@@ -111,72 +138,207 @@
             const fecha_calibracion_actual = document.getElementById('fecha_calibracion_actual').value;
             const proxima_calibracion = document.getElementById('proxima_calibracion').value;
             
-            // Validar emojis
-            if (contieneEmojis(id_instrumento) || contieneEmojis(estandar_referencia) || 
-                contieneEmojis(lectura_antes) || contieneEmojis(lectura_despues) || 
-                contieneEmojis(certificado_asociado)) {
-                errores.push('No se permiten emojis en los campos');
+            // Validar ID Instrumento - espacios al inicio o final
+            if (id_instrumento !== id_instrumento.trim()) {
+                return marcarError('id_instrumento', 'No debe tener espacios al inicio o al final');
             }
             
-            // Validar scripts maliciosos
-            if (contieneScriptMalicioso(id_instrumento) || contieneScriptMalicioso(estandar_referencia) || 
-                contieneScriptMalicioso(lectura_antes) || contieneScriptMalicioso(lectura_despues) || 
-                contieneScriptMalicioso(certificado_asociado)) {
-                errores.push('Contenido malicioso detectado');
+            // Validar ID Instrumento - emojis
+            if (contieneEmojis(id_instrumento)) {
+                return marcarError('id_instrumento', 'No se permiten emojis en este campo');
             }
             
-            // Validar caracteres en campos de texto
+            // Validar ID Instrumento - scripts maliciosos
+            if (contieneScriptMalicioso(id_instrumento)) {
+                return marcarError('id_instrumento', 'Contenido malicioso detectado');
+            }
+            
+            // Validar ID Instrumento - caracteres
             if (!esTextoValido(id_instrumento)) {
-                errores.push('ID Instrumento contiene caracteres no permitidos');
-            }
-            if (!esTextoValido(estandar_referencia)) {
-                errores.push('Estándar de Referencia contiene caracteres no permitidos');
+                return marcarError('id_instrumento', 'Solo se permiten letras, números, espacios, guiones, puntos, grados y paréntesis');
             }
             
-            // Validar formato de lecturas
-            if (!esLecturaValida(lectura_antes)) {
-                errores.push('Lectura Antes debe tener formato: número + unidad (ej: 10.2°C)');
-            }
-            if (!esLecturaValida(lectura_despues)) {
-                errores.push('Lectura Después debe tener formato: número + unidad (ej: 10.0°C)');
-            }
-            
-            // Validar certificado
-            if (!esCertificadoValido(certificado_asociado)) {
-                errores.push('Certificado debe ser alfanumérico con guiones (ej: CERT-2024-001)');
-            }
-            
-            // Validar longitud
+            // Validar ID Instrumento - longitud
             if (id_instrumento.length > 100) {
-                errores.push('ID Instrumento excede 100 caracteres');
-            }
-            if (estandar_referencia.length > 100) {
-                errores.push('Estándar de Referencia excede 100 caracteres');
-            }
-            if (lectura_antes.length > 50 || lectura_despues.length > 50) {
-                errores.push('Las lecturas exceden 50 caracteres');
-            }
-            if (certificado_asociado.length > 100) {
-                errores.push('Certificado excede 100 caracteres');
+                return marcarError('id_instrumento', 'Excede 100 caracteres');
             }
             
-            // Validar lógica de fechas
+            // Validar Última Calibración - vacía
+            if (!ultima_calibracion) {
+                return marcarError('ultima_calibracion', 'Este campo es obligatorio');
+            }
+            
+            // Validar Última Calibración - formato
             const fechaUltima = new Date(ultima_calibracion);
+            if (isNaN(fechaUltima.getTime())) {
+                return marcarError('ultima_calibracion', 'No es una fecha válida');
+            }
+            
+            // Validar Última Calibración - no puede ser futura
+            const fechaHoy = new Date();
+            fechaHoy.setHours(0, 0, 0, 0);
+            if (fechaUltima > fechaHoy) {
+                return marcarError('ultima_calibracion', 'La última calibración no puede ser una fecha futura');
+            }
+            
+            // Validar Última Calibración - no muy antigua
+            const fecha20AnosAtras = new Date();
+            fecha20AnosAtras.setFullYear(fechaHoy.getFullYear() - 20);
+            if (fechaUltima < fecha20AnosAtras) {
+                return marcarError('ultima_calibracion', 'No puede ser mayor a 20 años en el pasado');
+            }
+            
+            // Validar Fecha Calibración Actual - vacía
+            if (!fecha_calibracion_actual) {
+                return marcarError('fecha_calibracion_actual', 'Este campo es obligatorio');
+            }
+            
+            // Validar Fecha Calibración Actual - formato
             const fechaActual = new Date(fecha_calibracion_actual);
-            const fechaProxima = new Date(proxima_calibracion);
+            if (isNaN(fechaActual.getTime())) {
+                return marcarError('fecha_calibracion_actual', 'No es una fecha válida');
+            }
             
+            // Validar Fecha Calibración Actual - no muy antigua
+            if (fechaActual < fecha20AnosAtras) {
+                return marcarError('fecha_calibracion_actual', 'No puede ser mayor a 20 años en el pasado');
+            }
+            
+            // Validar Fecha Calibración Actual >= Última Calibración
             if (fechaActual < fechaUltima) {
-                errores.push('La fecha de calibración actual no puede ser anterior a la última calibración');
-            }
-            if (fechaProxima <= fechaActual) {
-                errores.push('La próxima calibración debe ser posterior a la calibración actual');
+                return marcarError('fecha_calibracion_actual', 'No puede ser anterior a la Última Calibración');
             }
             
-            // Mostrar errores
-            if (errores.length > 0) {
-                e.preventDefault();
-                alert('ERRORES DE VALIDACIÓN:\n\n' + errores.join('\n'));
+            // Validar Estándar de Referencia - espacios al inicio o final
+            if (estandar_referencia !== estandar_referencia.trim()) {
+                return marcarError('estandar_referencia', 'No debe tener espacios al inicio o al final');
             }
+            
+            // Validar Estándar de Referencia - emojis
+            if (contieneEmojis(estandar_referencia)) {
+                return marcarError('estandar_referencia', 'No se permiten emojis en este campo');
+            }
+            
+            // Validar Estándar de Referencia - scripts
+            if (contieneScriptMalicioso(estandar_referencia)) {
+                return marcarError('estandar_referencia', 'Contenido malicioso detectado');
+            }
+            
+            // Validar Estándar de Referencia - caracteres
+            if (!esTextoValido(estandar_referencia)) {
+                return marcarError('estandar_referencia', 'Solo se permiten letras, números, espacios, guiones, puntos, grados y paréntesis');
+            }
+            
+            // Validar Estándar de Referencia - longitud
+            if (estandar_referencia.length > 100) {
+                return marcarError('estandar_referencia', 'Excede 100 caracteres');
+            }
+            
+            // Validar Lectura Antes - espacios al inicio o final
+            if (lectura_antes !== lectura_antes.trim()) {
+                return marcarError('lectura_antes', 'No debe tener espacios al inicio o al final');
+            }
+            
+            // Validar Lectura Antes - emojis
+            if (contieneEmojis(lectura_antes)) {
+                return marcarError('lectura_antes', 'No se permiten emojis en este campo');
+            }
+            
+            // Validar Lectura Antes - scripts
+            if (contieneScriptMalicioso(lectura_antes)) {
+                return marcarError('lectura_antes', 'Contenido malicioso detectado');
+            }
+            
+            // Validar Lectura Antes - formato
+            if (!esLecturaValida(lectura_antes)) {
+                return marcarError('lectura_antes', 'Debe tener formato: número + unidad (ej: 10.2°C)');
+            }
+            
+            // Validar Lectura Antes - longitud
+            if (lectura_antes.length > 50) {
+                return marcarError('lectura_antes', 'Excede 50 caracteres');
+            }
+            
+            // Validar Lectura Después - espacios al inicio o final
+            if (lectura_despues !== lectura_despues.trim()) {
+                return marcarError('lectura_despues', 'No debe tener espacios al inicio o al final');
+            }
+            
+            // Validar Lectura Después - emojis
+            if (contieneEmojis(lectura_despues)) {
+                return marcarError('lectura_despues', 'No se permiten emojis en este campo');
+            }
+            
+            // Validar Lectura Después - scripts
+            if (contieneScriptMalicioso(lectura_despues)) {
+                return marcarError('lectura_despues', 'Contenido malicioso detectado');
+            }
+            
+            // Validar Lectura Después - formato
+            if (!esLecturaValida(lectura_despues)) {
+                return marcarError('lectura_despues', 'Debe tener formato: número + unidad (ej: 10.0°C)');
+            }
+            
+            // Validar Lectura Después - longitud
+            if (lectura_despues.length > 50) {
+                return marcarError('lectura_despues', 'Excede 50 caracteres');
+            }
+            
+            // Validar Certificado - espacios al inicio o final
+            if (certificado_asociado !== certificado_asociado.trim()) {
+                return marcarError('certificado_asociado', 'No debe tener espacios al inicio o al final');
+            }
+            
+            // Validar Certificado - emojis
+            if (contieneEmojis(certificado_asociado)) {
+                return marcarError('certificado_asociado', 'No se permiten emojis en este campo');
+            }
+            
+            // Validar Certificado - scripts
+            if (contieneScriptMalicioso(certificado_asociado)) {
+                return marcarError('certificado_asociado', 'Contenido malicioso detectado');
+            }
+            
+            // Validar Certificado - formato
+            if (!esCertificadoValido(certificado_asociado)) {
+                return marcarError('certificado_asociado', 'Debe ser alfanumérico con guiones (ej: CERT-2024-001)');
+            }
+            
+            // Validar Certificado - longitud
+            if (certificado_asociado.length > 100) {
+                return marcarError('certificado_asociado', 'Excede 100 caracteres');
+            }
+            
+            // Validar Próxima Calibración - vacía
+            if (!proxima_calibracion) {
+                return marcarError('proxima_calibracion', 'Este campo es obligatorio');
+            }
+            
+            // Validar Próxima Calibración - formato
+            const fechaProxima = new Date(proxima_calibracion);
+            if (isNaN(fechaProxima.getTime())) {
+                return marcarError('proxima_calibracion', 'No es una fecha válida');
+            }
+            
+            // Validar Próxima Calibración - no muy futura
+            const fecha10AnosAdelante = new Date();
+            fecha10AnosAdelante.setFullYear(fechaHoy.getFullYear() + 10);
+            if (fechaProxima > fecha10AnosAdelante) {
+                return marcarError('proxima_calibracion', 'No puede ser mayor a 10 años en el futuro');
+            }
+            
+            // Validar Próxima Calibración > Fecha Actual
+            if (fechaProxima <= fechaActual) {
+                return marcarError('proxima_calibracion', 'Debe ser posterior a la Calibración Actual');
+            }
+            
+            // Validar Próxima Calibración > Última Calibración
+            if (fechaProxima <= fechaUltima) {
+                return marcarError('proxima_calibracion', 'Debe ser posterior a la Última Calibración');
+            }
+            
+            // Si todas las validaciones pasaron, enviar formulario
+            this.submit();
         });
     </script>
 </body>

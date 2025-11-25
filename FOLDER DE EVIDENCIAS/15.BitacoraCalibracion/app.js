@@ -110,7 +110,24 @@ app.post('/instrumentos', (req, res) => {
     if (!id_instrumento || !ultima_calibracion || !fecha_calibracion_actual || 
         !estandar_referencia || !lectura_antes || !lectura_despues || 
         !certificado_asociado || !proxima_calibracion) {
-        return res.redirect('/?error=' + encodeURIComponent('Todos los campos son obligatorios'));
+        return res.redirect('/?error=' + encodeURIComponent('- Todos los campos son obligatorios'));
+    }
+    
+    // Validar espacios al inicio o final
+    if (id_instrumento !== id_instrumento.trim()) {
+        errores.push('- ID Instrumento: No debe tener espacios al inicio o al final');
+    }
+    if (estandar_referencia !== estandar_referencia.trim()) {
+        errores.push('- Estándar de Referencia: No debe tener espacios al inicio o al final');
+    }
+    if (lectura_antes !== lectura_antes.trim()) {
+        errores.push('- Lectura Antes: No debe tener espacios al inicio o al final');
+    }
+    if (lectura_despues !== lectura_despues.trim()) {
+        errores.push('- Lectura Después: No debe tener espacios al inicio o al final');
+    }
+    if (certificado_asociado !== certificado_asociado.trim()) {
+        errores.push('- Certificado: No debe tener espacios al inicio o al final');
     }
     
     // Validar emojis en todos los campos de texto
@@ -170,12 +187,38 @@ app.post('/instrumentos', (req, res) => {
     const fechaUltima = new Date(ultima_calibracion);
     const fechaActual = new Date(fecha_calibracion_actual);
     const fechaProxima = new Date(proxima_calibracion);
+    const fechaHoy = new Date();
+    fechaHoy.setHours(0, 0, 0, 0);
+    const fecha20AnosAtras = new Date();
+    fecha20AnosAtras.setFullYear(fechaHoy.getFullYear() - 20);
+    const fecha10AnosAdelante = new Date();
+    fecha10AnosAdelante.setFullYear(fechaHoy.getFullYear() + 10);
     
+    // Validar que la última calibración no sea futura
+    if (fechaUltima > fechaHoy) {
+        errores.push('- La Última Calibración no puede ser una fecha futura');
+    }
+    
+    // Validar que las fechas no sean muy antiguas o muy futuras
+    if (fechaUltima < fecha20AnosAtras) {
+        errores.push('- Última Calibración no puede ser mayor a 20 años en el pasado');
+    }
+    if (fechaActual < fecha20AnosAtras) {
+        errores.push('- Fecha Calibración Actual no puede ser mayor a 20 años en el pasado');
+    }
+    if (fechaProxima > fecha10AnosAdelante) {
+        errores.push('- Próxima Calibración no puede ser mayor a 10 años en el futuro');
+    }
+    
+    // Validar secuencia lógica de fechas
     if (fechaActual < fechaUltima) {
-        errores.push('- La fecha de calibración actual no puede ser anterior a la última calibración');
+        errores.push('- La Fecha de Calibración Actual no puede ser anterior a la Última Calibración');
     }
     if (fechaProxima <= fechaActual) {
-        errores.push('- La próxima calibración debe ser posterior a la calibración actual');
+        errores.push('- La Próxima Calibración debe ser posterior a la Calibración Actual');
+    }
+    if (fechaProxima <= fechaUltima) {
+        errores.push('- La Próxima Calibración debe ser posterior a la Última Calibración');
     }
     
     // Si hay errores, retornarlos
@@ -237,6 +280,9 @@ app.get('/instrumentos/edit/:id', (req, res) => {
         if (error) {
             console.log('Error al obtener el instrumento: ' + error);
             res.redirect('/?error=' + encodeURIComponent('- Error al obtener el instrumento'));
+        } else if (!resultados || resultados.length === 0) {
+            console.log('Instrumento no encontrado con ID: ' + instrumentoId);
+            res.redirect('/?error=' + encodeURIComponent('- Instrumento no encontrado'));
         } else {
             res.render('edit', { instrumento: resultados[0], error: req.query.error || null });
         }
@@ -265,6 +311,23 @@ app.post('/instrumentos/update/:id', (req, res) => {
         !estandar_referencia || !lectura_antes || !lectura_despues || 
         !certificado_asociado || !proxima_calibracion) {
         return res.redirect('/instrumentos/edit/' + instrumentoId + '?error=' + encodeURIComponent('- Todos los campos son obligatorios'));
+    }
+    
+    // Validar espacios al inicio o final
+    if (id_instrumento !== id_instrumento.trim()) {
+        errores.push('- ID Instrumento: No debe tener espacios al inicio o al final');
+    }
+    if (estandar_referencia !== estandar_referencia.trim()) {
+        errores.push('- Estándar de Referencia: No debe tener espacios al inicio o al final');
+    }
+    if (lectura_antes !== lectura_antes.trim()) {
+        errores.push('- Lectura Antes: No debe tener espacios al inicio o al final');
+    }
+    if (lectura_despues !== lectura_despues.trim()) {
+        errores.push('- Lectura Después: No debe tener espacios al inicio o al final');
+    }
+    if (certificado_asociado !== certificado_asociado.trim()) {
+        errores.push('- Certificado: No debe tener espacios al inicio o al final');
     }
     
     // Validar emojis en todos los campos de texto
@@ -324,12 +387,38 @@ app.post('/instrumentos/update/:id', (req, res) => {
     const fechaUltima = new Date(ultima_calibracion);
     const fechaActual = new Date(fecha_calibracion_actual);
     const fechaProxima = new Date(proxima_calibracion);
+    const fechaHoy = new Date();
+    fechaHoy.setHours(0, 0, 0, 0);
+    const fecha20AnosAtras = new Date();
+    fecha20AnosAtras.setFullYear(fechaHoy.getFullYear() - 20);
+    const fecha10AnosAdelante = new Date();
+    fecha10AnosAdelante.setFullYear(fechaHoy.getFullYear() + 10);
     
+    // Validar que la última calibración no sea futura
+    if (fechaUltima > fechaHoy) {
+        errores.push('- La Última Calibración no puede ser una fecha futura');
+    }
+    
+    // Validar que las fechas no sean muy antiguas o muy futuras
+    if (fechaUltima < fecha20AnosAtras) {
+        errores.push('- Última Calibración no puede ser mayor a 20 años en el pasado');
+    }
+    if (fechaActual < fecha20AnosAtras) {
+        errores.push('- Fecha Calibración Actual no puede ser mayor a 20 años en el pasado');
+    }
+    if (fechaProxima > fecha10AnosAdelante) {
+        errores.push('- Próxima Calibración no puede ser mayor a 10 años en el futuro');
+    }
+    
+    // Validar secuencia lógica de fechas
     if (fechaActual < fechaUltima) {
-        errores.push('- La fecha de calibración actual no puede ser anterior a la última calibración');
+        errores.push('- La Fecha de Calibración Actual no puede ser anterior a la Última Calibración');
     }
     if (fechaProxima <= fechaActual) {
-        errores.push('- La próxima calibración debe ser posterior a la calibración actual');
+        errores.push('- La Próxima Calibración debe ser posterior a la Calibración Actual');
+    }
+    if (fechaProxima <= fechaUltima) {
+        errores.push('- La Próxima Calibración debe ser posterior a la Última Calibración');
     }
     
     // Si hay errores, retornarlos
@@ -361,7 +450,7 @@ app.post('/instrumentos/update/:id', (req, res) => {
     ], (error, resultados) => {
         if (error) {
             console.log('- Error al actualizar el registro: ' + error);
-            res.redirect('/instrumentos/edit/' + instrumentoId + '?error=' + encodeURIComponent('- Error al actualizar el registro en la base de datos'));
+            res.redirect('/instrumentos/edit/' + instrumentoId + '?error=' + encodeURIComponent('-  Error al actualizar el registro en la base de datos'));
         } else {
             res.redirect('/');
         }
