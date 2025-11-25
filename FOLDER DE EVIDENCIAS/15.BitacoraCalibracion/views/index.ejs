@@ -104,5 +104,124 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        // Mostrar error del servidor si existe
+        const errorServidor = <%- error ? JSON.stringify(error) : 'null' %>;
+        if (errorServidor) {
+            alert('❌ ERROR:\n\n' + errorServidor.replace(/\|/g, '\n'));
+        }
+        
+        // Función para detectar emojis
+        function contieneEmojis(texto) {
+            const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F1E0}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2B1B}-\u{2B1C}\u{3297}\u{3299}\u{303D}\u{00A9}\u{00AE}\u{2122}\u{23F3}\u{24C2}\u{23E9}-\u{23EF}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}]/gu;
+            return emojiRegex.test(texto);
+        }
+        
+        // Función para validar caracteres permitidos
+        function esTextoValido(texto) {
+            const textoRegex = /^[a-zA-Z0-9\s\-\.°ºª()\/%ÁÉÍÓÚáéíóúÑñ]+$/;
+            return textoRegex.test(texto);
+        }
+        
+        // Función para validar scripts maliciosos
+        function contieneScriptMalicioso(texto) {
+            const scriptRegex = /<script|javascript:|onerror=|onclick=|onload=/gi;
+            return scriptRegex.test(texto);
+        }
+        
+        // Función para validar lectura
+        function esLecturaValida(lectura) {
+            const lecturaRegex = /^[0-9]+\.?[0-9]*\s*[a-zA-ZºªÁÉÍÓÚáéíóúÑñ°%\/\-]+$/;
+            return lecturaRegex.test(lectura.trim());
+        }
+        
+        // Función para validar certificado
+        function esCertificadoValido(certificado) {
+            const certRegex = /^[A-Z0-9\-]+$/i;
+            return certRegex.test(certificado.trim());
+        }
+        
+        // Validar formulario
+        document.querySelector('.formulario').addEventListener('submit', function(e) {
+            const errores = [];
+            
+            const id_instrumento = document.getElementById('id_instrumento').value;
+            const estandar_referencia = document.getElementById('estandar_referencia').value;
+            const lectura_antes = document.getElementById('lectura_antes').value;
+            const lectura_despues = document.getElementById('lectura_despues').value;
+            const certificado_asociado = document.getElementById('certificado_asociado').value;
+            const ultima_calibracion = document.getElementById('ultima_calibracion').value;
+            const fecha_calibracion_actual = document.getElementById('fecha_calibracion_actual').value;
+            const proxima_calibracion = document.getElementById('proxima_calibracion').value;
+            
+            // Validar emojis
+            if (contieneEmojis(id_instrumento) || contieneEmojis(estandar_referencia) || 
+                contieneEmojis(lectura_antes) || contieneEmojis(lectura_despues) || 
+                contieneEmojis(certificado_asociado)) {
+                errores.push('❌ No se permiten emojis en los campos');
+            }
+            
+            // Validar scripts maliciosos
+            if (contieneScriptMalicioso(id_instrumento) || contieneScriptMalicioso(estandar_referencia) || 
+                contieneScriptMalicioso(lectura_antes) || contieneScriptMalicioso(lectura_despues) || 
+                contieneScriptMalicioso(certificado_asociado)) {
+                errores.push('⚠️ Contenido malicioso detectado');
+            }
+            
+            // Validar caracteres en campos de texto
+            if (!esTextoValido(id_instrumento)) {
+                errores.push('❌ ID Instrumento contiene caracteres no permitidos');
+            }
+            if (!esTextoValido(estandar_referencia)) {
+                errores.push('❌ Estándar de Referencia contiene caracteres no permitidos');
+            }
+            
+            // Validar formato de lecturas
+            if (!esLecturaValida(lectura_antes)) {
+                errores.push('❌ Lectura Antes debe tener formato: número + unidad (ej: 10.2°C)');
+            }
+            if (!esLecturaValida(lectura_despues)) {
+                errores.push('❌ Lectura Después debe tener formato: número + unidad (ej: 10.0°C)');
+            }
+            
+            // Validar certificado
+            if (!esCertificadoValido(certificado_asociado)) {
+                errores.push('❌ Certificado debe ser alfanumérico con guiones (ej: CERT-2024-001)');
+            }
+            
+            // Validar longitud
+            if (id_instrumento.length > 100) {
+                errores.push('❌ ID Instrumento excede 100 caracteres');
+            }
+            if (estandar_referencia.length > 100) {
+                errores.push('❌ Estándar de Referencia excede 100 caracteres');
+            }
+            if (lectura_antes.length > 50 || lectura_despues.length > 50) {
+                errores.push('❌ Las lecturas exceden 50 caracteres');
+            }
+            if (certificado_asociado.length > 100) {
+                errores.push('❌ Certificado excede 100 caracteres');
+            }
+            
+            // Validar lógica de fechas
+            const fechaUltima = new Date(ultima_calibracion);
+            const fechaActual = new Date(fecha_calibracion_actual);
+            const fechaProxima = new Date(proxima_calibracion);
+            
+            if (fechaActual < fechaUltima) {
+                errores.push('📅 La fecha de calibración actual no puede ser anterior a la última calibración');
+            }
+            if (fechaProxima <= fechaActual) {
+                errores.push('📅 La próxima calibración debe ser posterior a la calibración actual');
+            }
+            
+            // Mostrar errores
+            if (errores.length > 0) {
+                e.preventDefault();
+                alert('ERRORES DE VALIDACIÓN:\n\n' + errores.join('\n'));
+            }
+        });
+    </script>
 </body>
 </html>
