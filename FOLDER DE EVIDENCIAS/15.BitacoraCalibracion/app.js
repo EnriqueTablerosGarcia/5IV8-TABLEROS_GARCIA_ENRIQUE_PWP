@@ -361,7 +361,7 @@ app.post('/instrumentos/update/:id', (req, res) => {
     ], (error, resultados) => {
         if (error) {
             console.log('- Error al actualizar el registro: ' + error);
-            res.redirect('/instrumentos/edit/' + instrumentoId + '?error=' + encodeURIComponent('Error al actualizar el registro en la base de datos'));
+            res.redirect('/instrumentos/edit/' + instrumentoId + '?error=' + encodeURIComponent('- Error al actualizar el registro en la base de datos'));
         } else {
             res.redirect('/');
         }
