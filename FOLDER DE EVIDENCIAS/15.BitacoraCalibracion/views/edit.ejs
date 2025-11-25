@@ -64,7 +64,7 @@
         // Mostrar error del servidor si existe
         const errorServidor = <%- error ? JSON.stringify(error) : 'null' %>;
         if (errorServidor) {
-            alert('❌ ERROR:\n\n' + errorServidor.replace(/\|/g, '\n'));
+            alert('ERROR:\n\n' + errorServidor.replace(/\|/g, '\n'));
         }
         
         // Función para detectar emojis
@@ -114,49 +114,49 @@
             if (contieneEmojis(id_instrumento) || contieneEmojis(estandar_referencia) || 
                 contieneEmojis(lectura_antes) || contieneEmojis(lectura_despues) || 
                 contieneEmojis(certificado_asociado)) {
-                errores.push('❌ No se permiten emojis en los campos');
+                errores.push('No se permiten emojis en los campos');
             }
             
             // Validar scripts maliciosos
             if (contieneScriptMalicioso(id_instrumento) || contieneScriptMalicioso(estandar_referencia) || 
                 contieneScriptMalicioso(lectura_antes) || contieneScriptMalicioso(lectura_despues) || 
                 contieneScriptMalicioso(certificado_asociado)) {
-                errores.push('⚠️ Contenido malicioso detectado');
+                errores.push('Contenido malicioso detectado');
             }
             
             // Validar caracteres en campos de texto
             if (!esTextoValido(id_instrumento)) {
-                errores.push('❌ ID Instrumento contiene caracteres no permitidos');
+                errores.push('ID Instrumento contiene caracteres no permitidos');
             }
             if (!esTextoValido(estandar_referencia)) {
-                errores.push('❌ Estándar de Referencia contiene caracteres no permitidos');
+                errores.push('Estándar de Referencia contiene caracteres no permitidos');
             }
             
             // Validar formato de lecturas
             if (!esLecturaValida(lectura_antes)) {
-                errores.push('❌ Lectura Antes debe tener formato: número + unidad (ej: 10.2°C)');
+                errores.push('Lectura Antes debe tener formato: número + unidad (ej: 10.2°C)');
             }
             if (!esLecturaValida(lectura_despues)) {
-                errores.push('❌ Lectura Después debe tener formato: número + unidad (ej: 10.0°C)');
+                errores.push('Lectura Después debe tener formato: número + unidad (ej: 10.0°C)');
             }
             
             // Validar certificado
             if (!esCertificadoValido(certificado_asociado)) {
-                errores.push('❌ Certificado debe ser alfanumérico con guiones (ej: CERT-2024-001)');
+                errores.push('Certificado debe ser alfanumérico con guiones (ej: CERT-2024-001)');
             }
             
             // Validar longitud
             if (id_instrumento.length > 100) {
-                errores.push('❌ ID Instrumento excede 100 caracteres');
+                errores.push('ID Instrumento excede 100 caracteres');
             }
             if (estandar_referencia.length > 100) {
-                errores.push('❌ Estándar de Referencia excede 100 caracteres');
+                errores.push('Estándar de Referencia excede 100 caracteres');
             }
             if (lectura_antes.length > 50 || lectura_despues.length > 50) {
-                errores.push('❌ Las lecturas exceden 50 caracteres');
+                errores.push('Las lecturas exceden 50 caracteres');
             }
             if (certificado_asociado.length > 100) {
-                errores.push('❌ Certificado excede 100 caracteres');
+                errores.push('Certificado excede 100 caracteres');
             }
             
             // Validar lógica de fechas
@@ -165,10 +165,10 @@
             const fechaProxima = new Date(proxima_calibracion);
             
             if (fechaActual < fechaUltima) {
-                errores.push('📅 La fecha de calibración actual no puede ser anterior a la última calibración');
+                errores.push('La fecha de calibración actual no puede ser anterior a la última calibración');
             }
             if (fechaProxima <= fechaActual) {
-                errores.push('📅 La próxima calibración debe ser posterior a la calibración actual');
+                errores.push('La próxima calibración debe ser posterior a la calibración actual');
             }
             
             // Mostrar errores

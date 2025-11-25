@@ -117,7 +117,7 @@ app.post('/instrumentos', (req, res) => {
     if (contieneEmojis(id_instrumento) || contieneEmojis(estandar_referencia) || 
         contieneEmojis(lectura_antes) || contieneEmojis(lectura_despues) || 
         contieneEmojis(certificado_asociado)) {
-        errores.push('No se permiten emojis en los campos');
+        errores.push('- No se permiten emojis en los campos');
     }
     
     // Validar scripts maliciosos
@@ -129,41 +129,41 @@ app.post('/instrumentos', (req, res) => {
     
     // Validar caracteres permitidos en campos de texto
     if (!esTextoValido(id_instrumento)) {
-        errores.push('ID Instrumento contiene caracteres no permitidos');
+        errores.push('- ID Instrumento contiene caracteres no permitidos');
     }
     if (!esTextoValido(estandar_referencia)) {
-        errores.push('Estándar de Referencia contiene caracteres no permitidos');
+        errores.push('- Estándar de Referencia contiene caracteres no permitidos');
     }
     
     // Validar formato de lecturas
     if (!esLecturaValida(lectura_antes)) {
-        errores.push('Lectura Antes debe tener formato: número + unidad (ej: 10.2°C)');
+        errores.push('- Lectura Antes debe tener formato: número + unidad (ej: 10.2°C)');
     }
     if (!esLecturaValida(lectura_despues)) {
-        errores.push('Lectura Después debe tener formato: número + unidad (ej: 10.0°C)');
+        errores.push('- Lectura Después debe tener formato: número + unidad (ej: 10.0°C)');
     }
     
     // Validar certificado
     if (!esCertificadoValido(certificado_asociado)) {
-        errores.push('Certificado debe ser alfanumérico con guiones (ej: CERT-2024-001)');
+        errores.push('- Certificado debe ser alfanumérico con guiones (ej: CERT-2024-001)');
     }
     
     // Validar fechas
     if (!esFechaValida(ultima_calibracion)) {
-        errores.push('Última Calibración no es una fecha válida');
+        errores.push('- Última Calibración no es una fecha válida');
     }
     if (!esFechaValida(fecha_calibracion_actual)) {
-        errores.push('Fecha Calibración Actual no es una fecha válida');
+        errores.push('- Fecha Calibración Actual no es una fecha válida');
     }
     if (!esFechaValida(proxima_calibracion)) {
-        errores.push('Próxima Calibración no es una fecha válida');
+        errores.push('- Próxima Calibración no es una fecha válida');
     }
     
     // Validar longitud de campos
     if (id_instrumento.length > 100 || estandar_referencia.length > 100 || 
         lectura_antes.length > 50 || lectura_despues.length > 50 || 
         certificado_asociado.length > 100) {
-        errores.push('Uno o más campos exceden la longitud máxima permitida');
+        errores.push('- Uno o más campos exceden la longitud máxima permitida');
     }
     
     // Validar lógica de fechas
@@ -172,10 +172,10 @@ app.post('/instrumentos', (req, res) => {
     const fechaProxima = new Date(proxima_calibracion);
     
     if (fechaActual < fechaUltima) {
-        errores.push('La fecha de calibración actual no puede ser anterior a la última calibración');
+        errores.push('- La fecha de calibración actual no puede ser anterior a la última calibración');
     }
     if (fechaProxima <= fechaActual) {
-        errores.push('La próxima calibración debe ser posterior a la calibración actual');
+        errores.push('- La próxima calibración debe ser posterior a la calibración actual');
     }
     
     // Si hay errores, retornarlos
@@ -206,7 +206,7 @@ app.post('/instrumentos', (req, res) => {
     ], (error, resultados) => {
         if (error) {
             console.log('Error al crear el registro: ' + error);
-            res.redirect('/?error=' + encodeURIComponent('Error al crear el registro en la base de datos'));
+            res.redirect('/?error=' + encodeURIComponent('- Error al crear el registro en la base de datos'));
         } else {
             res.redirect('/');
         }
@@ -221,7 +221,7 @@ app.get('/instrumentos/delete/:id', (req, res) => {
     bd.query(query, [instrumentoId], (error, resultados) => {
         if (error) {
             console.log('Error al eliminar el registro: ' + error);
-            res.redirect('/?error=' + encodeURIComponent('Error al eliminar el registro'));
+            res.redirect('/?error=' + encodeURIComponent('- Error al eliminar el registro'));
         } else {
             res.redirect('/');
         }
@@ -236,7 +236,7 @@ app.get('/instrumentos/edit/:id', (req, res) => {
     bd.query(query, [instrumentoId], (error, resultados) => {
         if (error) {
             console.log('Error al obtener el instrumento: ' + error);
-            res.redirect('/?error=' + encodeURIComponent('Error al obtener el instrumento'));
+            res.redirect('/?error=' + encodeURIComponent('- Error al obtener el instrumento'));
         } else {
             res.render('edit', { instrumento: resultados[0], error: req.query.error || null });
         }
@@ -264,60 +264,60 @@ app.post('/instrumentos/update/:id', (req, res) => {
     if (!id_instrumento || !ultima_calibracion || !fecha_calibracion_actual || 
         !estandar_referencia || !lectura_antes || !lectura_despues || 
         !certificado_asociado || !proxima_calibracion) {
-        return res.redirect('/instrumentos/edit/' + instrumentoId + '?error=' + encodeURIComponent('Todos los campos son obligatorios'));
+        return res.redirect('/instrumentos/edit/' + instrumentoId + '?error=' + encodeURIComponent('- Todos los campos son obligatorios'));
     }
     
     // Validar emojis en todos los campos de texto
     if (contieneEmojis(id_instrumento) || contieneEmojis(estandar_referencia) || 
         contieneEmojis(lectura_antes) || contieneEmojis(lectura_despues) || 
         contieneEmojis(certificado_asociado)) {
-        errores.push('No se permiten emojis en los campos');
+        errores.push('- No se permiten emojis en los campos');
     }
     
     // Validar scripts maliciosos
     if (contieneScriptMalicioso(id_instrumento) || contieneScriptMalicioso(estandar_referencia) || 
         contieneScriptMalicioso(lectura_antes) || contieneScriptMalicioso(lectura_despues) || 
         contieneScriptMalicioso(certificado_asociado)) {
-        errores.push('Contenido malicioso detectado');
+        errores.push('- Contenido malicioso detectado');
     }
     
     // Validar caracteres permitidos en campos de texto
     if (!esTextoValido(id_instrumento)) {
-        errores.push('ID Instrumento contiene caracteres no permitidos');
+        errores.push('- ID Instrumento contiene caracteres no permitidos');
     }
     if (!esTextoValido(estandar_referencia)) {
-        errores.push('Estándar de Referencia contiene caracteres no permitidos');
+        errores.push('- Estándar de Referencia contiene caracteres no permitidos');
     }
     
     // Validar formato de lecturas
     if (!esLecturaValida(lectura_antes)) {
-        errores.push('Lectura Antes debe tener formato: número + unidad (ej: 10.2°C)');
+        errores.push('- Lectura Antes debe tener formato: número + unidad (ej: 10.2°C)');
     }
     if (!esLecturaValida(lectura_despues)) {
-        errores.push('Lectura Después debe tener formato: número + unidad (ej: 10.0°C)');
+        errores.push('- Lectura Después debe tener formato: número + unidad (ej: 10.0°C)');
     }
     
     // Validar certificado
     if (!esCertificadoValido(certificado_asociado)) {
-        errores.push('Certificado debe ser alfanumérico con guiones (ej: CERT-2024-001)');
+        errores.push('- Certificado debe ser alfanumérico con guiones (ej: CERT-2024-001)');
     }
     
     // Validar fechas
     if (!esFechaValida(ultima_calibracion)) {
-        errores.push('Última Calibración no es una fecha válida');
+        errores.push('- Última Calibración no es una fecha válida');
     }
     if (!esFechaValida(fecha_calibracion_actual)) {
-        errores.push('Fecha Calibración Actual no es una fecha válida');
+        errores.push('- Fecha Calibración Actual no es una fecha válida');
     }
     if (!esFechaValida(proxima_calibracion)) {
-        errores.push('Próxima Calibración no es una fecha válida');
+        errores.push('- Próxima Calibración no es una fecha válida');
     }
     
     // Validar longitud de campos
     if (id_instrumento.length > 100 || estandar_referencia.length > 100 || 
         lectura_antes.length > 50 || lectura_despues.length > 50 || 
         certificado_asociado.length > 100) {
-        errores.push('Uno o más campos exceden la longitud máxima permitida');
+        errores.push('-Uno o más campos exceden la longitud máxima permitida');
     }
     
     // Validar lógica de fechas
@@ -326,10 +326,10 @@ app.post('/instrumentos/update/:id', (req, res) => {
     const fechaProxima = new Date(proxima_calibracion);
     
     if (fechaActual < fechaUltima) {
-        errores.push('La fecha de calibración actual no puede ser anterior a la última calibración');
+        errores.push('- La fecha de calibración actual no puede ser anterior a la última calibración');
     }
     if (fechaProxima <= fechaActual) {
-        errores.push('La próxima calibración debe ser posterior a la calibración actual');
+        errores.push('- La próxima calibración debe ser posterior a la calibración actual');
     }
     
     // Si hay errores, retornarlos
@@ -360,7 +360,7 @@ app.post('/instrumentos/update/:id', (req, res) => {
         instrumentoId
     ], (error, resultados) => {
         if (error) {
-            console.log('Error al actualizar el registro: ' + error);
+            console.log('- Error al actualizar el registro: ' + error);
             res.redirect('/instrumentos/edit/' + instrumentoId + '?error=' + encodeURIComponent('Error al actualizar el registro en la base de datos'));
         } else {
             res.redirect('/');
