@@ -107,6 +107,7 @@
     
     <script>
         // Mostrar error del servidor si existe
+        // @ts-ignore
         const errorServidor = <%- error ? JSON.stringify(error) : 'null' %>;
         if (errorServidor) {
             alert('ERROR:\n\n' + errorServidor.replace(/\|/g, '\n'));
