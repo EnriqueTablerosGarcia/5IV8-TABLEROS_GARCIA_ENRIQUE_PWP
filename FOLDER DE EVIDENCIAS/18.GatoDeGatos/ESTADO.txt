@@ -1,0 +1,90 @@
+========================================
+  SERVIDOR YA ESTA CORRIENDO!
+========================================
+
+ESTADO ACTUAL:
+✓ Servidor corriendo en http://localhost:8000
+✓ Conexion exitosa a la base de datos
+✓ Nodemon vigilando cambios automaticamente
+✓ Aplicacion RESPONSIVE (adaptativa a todos los dispositivos)
+
+========================================
+  APLICACION ADAPTATIVA
+========================================
+
+La aplicacion ahora funciona en:
+- Computadoras (pantalla grande)
+- Tablets (pantalla mediana)
+- Celulares (pantalla pequeña)
+
+CARACTERISTICAS RESPONSIVE:
+✓ Tablas con scroll horizontal en pantallas pequeñas
+✓ Formularios apilados en vertical en movil
+✓ Botones adaptados al tamaño de pantalla
+✓ Tablero de juego escalable
+✓ Todo centrado y organizado
+
+========================================
+  PARA USAR LA APLICACION
+========================================
+
+1. Abre tu navegador
+2. Ve a: http://localhost:8000
+3. Ingresa 2 nombres de jugadores
+4. Haz clic en "Iniciar Partida"
+5. Juega!
+
+TAMBIEN PUEDES:
+- Ver partidas: http://localhost:8000/partidas
+- Ver ranking: http://localhost:8000/ranking
+
+========================================
+  COMANDOS IMPORTANTES
+========================================
+
+INICIAR SERVIDOR CON NODEMON (auto-reinicio):
+npm run dev
+
+INICIAR SERVIDOR NORMAL:
+node app.js
+
+DETENER SERVIDOR:
+Ctrl + C
+
+REINICIAR MANUALMENTE (en nodemon):
+Escribe: rs
+
+========================================
+  FUNCIONALIDADES
+========================================
+
+1. JUGAR GATO DE GATOS
+   - 9 mini-tableros en 1 tablero principal
+   - Tu movimiento determina donde juega tu oponente
+   - 10 puntos por mini-tablero ganado
+   - 50 puntos bonus al ganador
+
+2. CRUD DE PARTIDAS
+   - Ver todas las partidas
+   - Continuar partidas en curso
+   - Eliminar partidas
+
+3. RANKING
+   - Top 20 jugadores
+   - Estadisticas completas
+   - Porcentaje de victorias
+
+========================================
+  SI HAY PROBLEMAS
+========================================
+
+ERROR: Pagina no carga
+SOLUCION: Recarga la pagina (F5)
+
+ERROR: No inicia partida
+SOLUCION: Verifica que los nombres sean diferentes
+
+ERROR: No conecta BD
+SOLUCION: Ejecuta: node setup-db.js
+
+========================================

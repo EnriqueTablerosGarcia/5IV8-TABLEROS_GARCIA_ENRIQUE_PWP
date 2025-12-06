@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gato de Gatos - Gestión de Partidas</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo-principal">GESTION DE PARTIDAS</h1>
+        
+        <div class="alert-info">
+            <p><strong>Aqui puedes eliminar partidas anteriores</strong></p>
+            <p>Las partidas "EN CURSO" se pueden continuar. Las "FINALIZADA" y "EMPATE" se pueden eliminar.</p>
+        </div>
+        
+        <div class="acciones">
+            <button class="btn-secondary" onclick="window.location.href='/'">Volver al Inicio</button>
+            <button class="btn-secondary" onclick="window.location.href='/ranking'">Ver Ranking</button>
+            <button class="btn-delete-all" onclick="eliminarTodasFinalizadas()">Eliminar Todas las Finalizadas</button>
+        </div>
+        
+        <div class="partidas-section">
+            <h2>Todas las Partidas</h2>
+            <div class="tabla-wrapper">
+                <table class="tabla-ranking">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Jugador 1</th>
+                        <th>Jugador 2</th>
+                        <th>Ganador</th>
+                        <th>Puntos J1</th>
+                        <th>Puntos J2</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (partidas.length === 0) { %>
+                        <tr>
+                            <td colspan="9" style="text-align: center; padding: 30px;">
+                                No hay partidas registradas
+                            </td>
+                        </tr>
+                    <% } else { %>
+                        <% partidas.forEach((partida) => { %>
+                            <tr>
+                                <td><%= partida.id %></td>
+                                <td><%= partida.jugador1_nombre %></td>
+                                <td><%= partida.jugador2_nombre %></td>
+                                <td>
+                                    <% if (partida.ganador_nombre) { %>
+                                        <%= partida.ganador_nombre %>
+                                    <% } else if (partida.estado === 'empate') { %>
+                                        Empate
+                                    <% } else { %>
+                                        -
+                                    <% } %>
+                                </td>
+                                <td><%= partida.puntos_jugador1 %></td>
+                                <td><%= partida.puntos_jugador2 %></td>
+                                <td>
+                                    <span class="estado-<%= partida.estado %>">
+                                        <%= partida.estado.replace('_', ' ').toUpperCase() %>
+                                    </span>
+                                </td>
+                                <td><%= new Date(partida.fecha_inicio).toLocaleString('es-MX') %></td>
+                                <td class="acciones-celda">
+                                    <% if (partida.estado === 'en_curso') { %>
+                                        <button class="btn-small btn-play" onclick="window.location.href='/juego/<%= partida.id %>'">
+                                            Continuar
+                                        </button>
+                                    <% } %>
+                                    <button class="btn-small btn-delete" data-id="<%= partida.id %>" onclick="eliminarPartida(<%= partida.id %>)">
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    <% } %>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        async function eliminarPartida(id) {
+            if (!confirm('¿Estas seguro de eliminar esta partida?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/partida/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    alert('Partida eliminada correctamente');
+                    location.reload();
+                } else {
+                    alert('Error al eliminar la partida');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al eliminar la partida');
+            }
+        }
+        
+        async function eliminarTodasFinalizadas() {
+            if (!confirm('¿Estas seguro de eliminar TODAS las partidas finalizadas y empatadas?')) {
+                return;
+            }
+            
+            const filas = document.querySelectorAll('.estado-finalizada, .estado-empate');
+            let eliminadas = 0;
+            
+            for (const fila of filas) {
+                const botonEliminar = fila.closest('tr').querySelector('.btn-delete');
+                if (botonEliminar) {
+                    const id = botonEliminar.getAttribute('data-id');
+                    try {
+                        const response = await fetch(`/partida/${id}`, {
+                            method: 'DELETE'
+                        });
+                        if (response.ok) {
+                            eliminadas++;
+                        }
+                    } catch (error) {
+                        console.error('Error al eliminar partida:', error);
+                    }
+                }
+            }
+            
+            alert(`Se eliminaron ${eliminadas} partidas`);
+            location.reload();
+        }
+    </script>
+</body>
+</html>

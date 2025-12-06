@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gato de Gatos - Juego</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="juego-body">
+    <div class="juego-container">
+        <div class="info-partida">
+            <div class="jugador-info jugador-x">
+                <span class="simbolo">X</span>
+                <span class="nombre"><%= partida.jugador1_nombre %></span>
+                <span class="puntos" id="puntos-x">0</span>
+            </div>
+            
+            <div class="turno-actual">
+                <h2 id="turno-texto">Turno de <%= partida.jugador1_nombre %></h2>
+                <div class="simbolo-turno" id="simbolo-turno">X</div>
+            </div>
+            
+            <div class="jugador-info jugador-o">
+                <span class="simbolo">O</span>
+                <span class="nombre"><%= partida.jugador2_nombre %></span>
+                <span class="puntos" id="puntos-o">0</span>
+            </div>
+        </div>
+        
+        <div id="tablero-principal" class="tablero-principal">
+            <!-- 9 mini-tableros se generarán con JavaScript -->
+        </div>
+        
+        <div class="controles">
+            <button id="btn-reiniciar" class="btn-secondary">Reiniciar Juego</button>
+            <button id="btn-volver" class="btn-secondary" onclick="window.location.href='/'">Volver al Inicio</button>
+        </div>
+    </div>
+    
+    <div id="modal-resultado" class="modal">
+        <div class="modal-content">
+            <h2 id="resultado-titulo">¡Resultado!</h2>
+            <p id="resultado-mensaje"></p>
+            <div class="resultado-puntos">
+                <div>
+                    <strong><%= partida.jugador1_nombre %>:</strong>
+                    <span id="resultado-puntos-x">0</span> puntos
+                </div>
+                <div>
+                    <strong><%= partida.jugador2_nombre %>:</strong>
+                    <span id="resultado-puntos-o">0</span> puntos
+                </div>
+            </div>
+            <button id="btn-nueva-partida" class="btn-primary">Nueva Partida</button>
+            <button id="btn-ver-ranking" class="btn-secondary">Ver Ranking</button>
+        </div>
+    </div>
+    
+    <script>
+        const PARTIDA_ID = <%= partida.id %>;
+        const JUGADOR1_ID = <%= partida.jugador1_id %>;
+        const JUGADOR2_ID = <%= partida.jugador2_id %>;
+        const JUGADOR1_NOMBRE = '<%= partida.jugador1_nombre %>';
+        const JUGADOR2_NOMBRE = '<%= partida.jugador2_nombre %>';
+    </script>
+    <script src="/juego.js"></script>
+</body>
+</html>

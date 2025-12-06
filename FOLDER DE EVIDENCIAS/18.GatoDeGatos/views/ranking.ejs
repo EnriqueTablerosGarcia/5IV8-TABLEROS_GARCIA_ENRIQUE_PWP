@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gato de Gatos - Ranking</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>RANKING</h1>
+            <p>Los mejores jugadores de Gato de Gatos</p>
+        </div>
+        
+        <div class="ranking-section">
+            <div class="tabla-wrapper">
+                <table class="tabla-ranking">
+                <thead>
+                    <tr>
+                        <th>Posición</th>
+                        <th>Jugador</th>
+                        <th>Puntos</th>
+                        <th>Partidas</th>
+                        <th>Ganadas</th>
+                        <th>Perdidas</th>
+                        <th>Empates</th>
+                        <th>% Victoria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (ranking.length === 0) { %>
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 30px;">
+                                No hay jugadores registrados todavía
+                            </td>
+                        </tr>
+                    <% } else { %>
+                        <% ranking.forEach((jugador, index) => { %>
+                            <tr>
+                                <td>
+                                    <% if (index === 0) { %>
+                                        #1
+                                    <% } else if (index === 1) { %>
+                                        #2
+                                    <% } else if (index === 2) { %>
+                                        #3
+                                    <% } else { %>
+                                        <%= index + 1 %>
+                                    <% } %>
+                                </td>
+                                <td><strong><%= jugador.nombre %></strong></td>
+                                <td style="color: var(--verde-neon); font-weight: bold;"><%= jugador.puntuacion_total %></td>
+                                <td><%= jugador.partidas_jugadas %></td>
+                                <td style="color: var(--verde-neon);"><%= jugador.partidas_ganadas %></td>
+                                <td style="color: #ff4444;"><%= jugador.partidas_perdidas %></td>
+                                <td style="color: var(--amarillo);"><%= jugador.partidas_empatadas %></td>
+                                <td>
+                                    <% const porcentaje = jugador.partidas_jugadas > 0 ? 
+                                        ((jugador.partidas_ganadas / jugador.partidas_jugadas) * 100).toFixed(1) : 0 %>
+                                    <%= porcentaje %>%
+                                </td>
+                            </tr>
+                        <% }); %>
+                    <% } %>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        
+        <div class="btn-container">
+            <button class="btn-primary" onclick="window.location.href='/'">Nueva Partida</button>
+        </div>
+    </div>
+</body>
+</html>

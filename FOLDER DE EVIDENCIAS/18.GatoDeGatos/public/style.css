@@ -1,0 +1,940 @@
+/* Variables de colores */
+:root {
+    --morado: #6c3483;
+    --verde-neon: #39ff14;
+    --amarillo: #ffbe00;
+    --fondo-oscuro: #1a1a1a;
+    --gris-oscuro: #2a2a2a;
+    --gris-medio: #3a3a3a;
+    --blanco: #ffffff;
+}
+
+/* Reset y estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--fondo-oscuro) 0%, var(--morado) 100%);
+    min-height: 100vh;
+    color: var(--blanco);
+}
+
+/* Página de inicio */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.header h1 {
+    font-size: 3.5rem;
+    color: var(--verde-neon);
+    text-shadow: 0 0 20px var(--verde-neon);
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2rem;
+    color: var(--amarillo);
+}
+
+/* Sección de jugadores */
+.jugadores-section {
+    background-color: var(--gris-oscuro);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 0 auto 30px auto;
+    max-width: 900px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.jugadores-section h2 {
+    color: var(--verde-neon);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.jugadores-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.jugador-input {
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+    text-align: center;
+}
+
+.jugador-input label {
+    display: block;
+    color: var(--amarillo);
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.jugador-input input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--morado);
+    border-radius: 8px;
+    background-color: var(--gris-medio);
+    color: var(--blanco);
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.jugador-input input:focus {
+    outline: none;
+    border-color: var(--verde-neon);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+.jugador-id {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: var(--verde-neon);
+}
+
+.vs-separator {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--amarillo);
+    text-shadow: 0 0 10px var(--amarillo);
+}
+
+/* Botones */
+.btn-primary, .btn-secondary {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--verde-neon), #2acc00);
+    color: var(--fondo-oscuro);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(57, 255, 20, 0.4);
+}
+
+.btn-secondary {
+    background-color: var(--gris-medio);
+    color: var(--blanco);
+    border: 2px solid var(--morado);
+}
+
+.btn-secondary:hover {
+    background-color: var(--morado);
+    border-color: var(--verde-neon);
+}
+
+.btn-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+/* Ranking */
+.ranking-section {
+    background-color: var(--gris-oscuro);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 0 auto 30px auto;
+    max-width: 900px;
+}
+
+.ranking-section h2 {
+    color: var(--amarillo);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.tabla-ranking {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto 0 auto;
+    max-width: 100%;
+}
+
+.tabla-ranking thead {
+    background-color: var(--morado);
+}
+
+.tabla-ranking th {
+    padding: 15px;
+    text-align: center;
+    color: var(--verde-neon);
+    font-weight: bold;
+}
+
+.tabla-ranking td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--gris-medio);
+    text-align: center;
+}
+
+.tabla-ranking tr:hover {
+    background-color: var(--gris-medio);
+}
+
+/* Instrucciones */
+.instrucciones {
+    background-color: var(--gris-oscuro);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 0 auto;
+    max-width: 900px;
+}
+
+.instrucciones h2 {
+    color: var(--verde-neon);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.instrucciones ul {
+    list-style-position: inside;
+    line-height: 2;
+    text-align: left;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.instrucciones li {
+    color: var(--blanco);
+    margin-bottom: 10px;
+}
+
+/* ======= PÁGINA DE JUEGO ======= */
+.juego-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.juego-container {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Información de la partida */
+.info-partida {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: var(--gris-oscuro);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.jugador-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.jugador-info .simbolo {
+    font-size: 3rem;
+}
+
+.jugador-info .nombre {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--amarillo);
+}
+
+.jugador-info .puntos {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--verde-neon);
+}
+
+.turno-actual {
+    text-align: center;
+}
+
+.turno-actual h2 {
+    color: var(--verde-neon);
+    margin-bottom: 10px;
+}
+
+.simbolo-turno {
+    font-size: 4rem;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Tablero principal */
+.tablero-principal {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    background-color: var(--fondo-oscuro);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    max-width: 800px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+/* Mini-tableros */
+.mini-tablero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    background-color: var(--gris-medio);
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+    transition: all 0.3s;
+    aspect-ratio: 1;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mini-tablero.activo {
+    background-color: var(--morado);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+}
+
+.mini-tablero.inactivo {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.mini-tablero.ganado {
+    pointer-events: none;
+}
+
+/* Overlay cuando un mini-tablero es ganado */
+.overlay-ganador {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    animation: aparecer 0.5s;
+    z-index: 10;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.mini-tablero.ganado-X .overlay-ganador {
+    color: var(--verde-neon);
+    text-shadow: 0 0 20px var(--verde-neon);
+}
+
+.mini-tablero.ganado-O .overlay-ganador {
+    color: var(--amarillo);
+    text-shadow: 0 0 20px var(--amarillo);
+}
+
+.mini-tablero.ganado-empate .overlay-ganador {
+    color: var(--gris-medio);
+}
+
+/* Celdas */
+.celda {
+    aspect-ratio: 1;
+    background-color: var(--gris-oscuro);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.celda:hover:not(.ocupada) {
+    background-color: var(--morado);
+    transform: scale(1.05);
+}
+
+.celda.ocupada {
+    cursor: not-allowed;
+    animation: colocar 0.3s;
+}
+
+@keyframes colocar {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Controles */
+.controles {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Modal de resultado */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--gris-oscuro);
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    border: 3px solid var(--verde-neon);
+    animation: aparecer 0.5s;
+}
+
+.modal-content h2 {
+    color: var(--verde-neon);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px var(--verde-neon);
+}
+
+.modal-content p {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: var(--amarillo);
+}
+
+.resultado-puntos {
+    background-color: var(--gris-medio);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 25px 0;
+    font-size: 1.2rem;
+}
+
+.resultado-puntos div {
+    margin: 10px 0;
+}
+
+.resultado-puntos strong {
+    color: var(--verde-neon);
+}
+
+.modal-content button {
+    margin: 10px;
+}
+
+/* Responsive */
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        padding: 20px 15px;
+    }
+    
+    .partidas-section {
+        overflow-x: auto;
+    }
+    
+    .tabla-ranking {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 968px) {
+    .titulo-principal {
+        font-size: 2.5rem;
+    }
+    
+    .header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .jugadores-container {
+        flex-direction: column;
+    }
+    
+    .form-jugadores {
+        flex-direction: column;
+    }
+    
+    .jugador-input {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .vs {
+        transform: rotate(90deg);
+        font-size: 1.5rem;
+    }
+    
+    .acciones {
+        flex-direction: column;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .tabla-ranking {
+        font-size: 0.85rem;
+    }
+    
+    .tabla-ranking th,
+    .tabla-ranking td {
+        padding: 8px 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .titulo-principal {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .inicio-partida,
+    .ranking-previo,
+    .instrucciones,
+    .partidas-section {
+        padding: 20px;
+    }
+    
+    .tablero-principal {
+        gap: 6px;
+        padding: 10px;
+        max-width: 95vw;
+    }
+    
+    .mini-tablero {
+        gap: 2px;
+        padding: 6px;
+    }
+    
+    .celda {
+        font-size: 1.3rem;
+    }
+    
+    .overlay-ganador {
+        font-size: 2.5rem;
+    }
+    
+    .info-partida {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .jugador-info .simbolo {
+        font-size: 2rem;
+    }
+    
+    .jugador-info .nombre {
+        font-size: 1rem;
+    }
+    
+    .jugador-info .puntos {
+        font-size: 1.5rem;
+    }
+    
+    .simbolo-turno {
+        font-size: 3rem;
+    }
+    
+    .tabla-ranking {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .controles {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .controles button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px 10px;
+    }
+    
+    .titulo-principal {
+        font-size: 1.5rem;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+    
+    .tablero-principal {
+        gap: 4px;
+        padding: 8px;
+        max-width: 98vw;
+    }
+    
+    .mini-tablero {
+        gap: 2px;
+        padding: 4px;
+    }
+    
+    .celda {
+        font-size: 1.1rem;
+    }
+    
+    .overlay-ganador {
+        font-size: 2rem;
+    }
+    
+    .info-partida {
+        padding: 10px;
+    }
+    
+    .jugador-info .simbolo {
+        font-size: 1.5rem;
+    }
+    
+    .simbolo-turno {
+        font-size: 2rem;
+    }
+    
+    .turno-actual h2 {
+        font-size: 1.2rem;
+    }
+    
+    .tabla-ranking th,
+    .tabla-ranking td {
+        padding: 6px 3px;
+        font-size: 0.75rem;
+    }
+    
+    .acciones-celda {
+        flex-direction: column;
+    }
+    
+    .btn-small {
+        width: 100%;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .modal-content {
+        width: 90%;
+        padding: 25px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .modal-content p {
+        font-size: 1rem;
+    }
+}
+
+/* Mejoras para tablets en modo landscape */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .tablero-principal {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .info-partida {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+/* Asegurar que las tablas sean scrolleables en pantallas pequeñas */
+.tabla-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.tabla-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.tabla-wrapper::-webkit-scrollbar-track {
+    background: var(--gris-medio);
+    border-radius: 4px;
+}
+
+.tabla-wrapper::-webkit-scrollbar-thumb {
+    background: var(--morado);
+    border-radius: 4px;
+}
+
+.tabla-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--verde-neon);
+}
+
+/* Mejorar la visibilidad de botones en móvil */
+@media (hover: none) {
+    .btn-primary:active,
+    .btn-secondary:active,
+    .btn-small:active {
+        transform: scale(0.95);
+    }
+}
+
+
+/* CRUD Partidas */
+.partidas-section {
+    background-color: var(--gris-oscuro);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 0 auto 30px auto;
+    max-width: 1400px;
+}
+
+.partidas-section h2 {
+    color: var(--verde-neon);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.acciones-celda {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-small {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.btn-play {
+    background-color: var(--verde-neon);
+    color: var(--fondo-oscuro);
+}
+
+.btn-play:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px var(--verde-neon);
+}
+
+.btn-delete {
+    background-color: #ff4444;
+    color: var(--blanco);
+}
+
+.btn-delete:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+.estado-en_curso {
+    color: var(--amarillo);
+    font-weight: bold;
+}
+
+.estado-finalizada {
+    color: var(--verde-neon);
+    font-weight: bold;
+}
+
+.estado-empate {
+    color: var(--gris-medio);
+    font-weight: bold;
+}
+
+.titulo-principal {
+    font-size: 3rem;
+    color: var(--verde-neon);
+    text-shadow: 0 0 20px var(--verde-neon);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.inicio-partida {
+    background-color: var(--gris-oscuro);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 0 auto 30px auto;
+    max-width: 900px;
+}
+
+.inicio-partida h2 {
+    color: var(--verde-neon);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-jugadores {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.vs {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--amarillo);
+    text-shadow: 0 0 10px var(--amarillo);
+}
+
+.ranking-previo {
+    background-color: var(--gris-oscuro);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 0 auto 30px auto;
+    max-width: 900px;
+}
+
+.ranking-previo h2 {
+    color: var(--amarillo);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.no-datos {
+    text-align: center;
+    padding: 30px;
+    color: var(--gris-medio);
+}
+
+.puntos {
+    color: var(--verde-neon);
+    font-weight: bold;
+}
+
+.ganadas {
+    color: var(--verde-neon);
+}
+
+.perdidas {
+    color: #ff4444;
+}
+
+.empatadas {
+    color: var(--amarillo);
+}
+
+.alert-error {
+    background-color: #ff4444;
+    color: var(--blanco);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.alert-info {
+    background-color: var(--gris-oscuro);
+    color: var(--blanco);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 2px solid var(--verde-neon);
+}
+
+.alert-info p {
+    margin: 5px 0;
+}
+
+.btn-delete-all {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    background-color: #cc0000;
+    color: var(--blanco);
+}
+
+.btn-delete-all:hover {
+    background-color: #ff0000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+}

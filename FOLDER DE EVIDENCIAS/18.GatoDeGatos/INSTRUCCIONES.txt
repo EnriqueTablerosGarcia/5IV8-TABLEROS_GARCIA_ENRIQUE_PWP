@@ -1,0 +1,82 @@
+========================================
+  COMO HACER QUE FUNCIONE - PASO A PASO
+========================================
+
+PROBLEMA: El servidor esta corriendo con el codigo viejo, necesitas reiniciarlo
+
+SOLUCION:
+
+PASO 1: DETENER EL SERVIDOR
+-----------------------------
+1. Ve a la terminal donde esta corriendo el servidor
+2. Presiona: Ctrl + C
+3. Espera a que diga "comando finalizado" o vuelva a aparecer "PS C:\..."
+
+PASO 2: INICIAR EL SERVIDOR NUEVAMENTE
+---------------------------------------
+1. En la misma terminal, ejecuta:
+   node app.js
+
+2. Debes ver estos 2 mensajes:
+   - Servidor corriendo en http://localhost:8000
+   - Conexion exitosa a la base de datos
+
+PASO 3: ABRIR EN EL NAVEGADOR
+------------------------------
+1. Abre tu navegador
+2. Ve a: http://localhost:8000
+
+PASO 4: PROBAR LA APLICACION
+-----------------------------
+1. Ingresa 2 nombres de jugadores
+2. Haz clic en "Iniciar Partida"
+3. Deberia abrirse el tablero de juego
+
+========================================
+  NUEVAS FUNCIONALIDADES AGREGADAS
+========================================
+
+1. CRUD DE PARTIDAS
+   - URL: http://localhost:8000/partidas
+   - Ver todas las partidas
+   - Eliminar partidas
+   - Continuar partidas en curso
+
+2. TODO CENTRADO
+   - Todos los elementos estan centrados
+   - Tablas centradas
+   - Botones centrados
+   - Texto centrado
+
+3. SIN EMOJIS
+   - Todos los emojis eliminados
+   - Solo texto simple
+
+========================================
+  SI ALGO NO FUNCIONA
+========================================
+
+ERROR: "Cannot GET /juego/1"
+SOLUCION: Reinicia el servidor (Paso 1 y 2)
+
+ERROR: No inicia la partida
+SOLUCION: 
+- Verifica que ambos nombres esten llenos
+- Verifica que sean nombres diferentes
+- Abre la consola del navegador (F12) y mira si hay errores
+
+ERROR: No conecta a la base de datos
+SOLUCION:
+- Verifica que MySQL este corriendo
+- Ejecuta: node setup-db.js
+- Reinicia el servidor
+
+========================================
+  ACCESOS RAPIDOS
+========================================
+
+Pagina Principal:     http://localhost:8000
+Gestion de Partidas:  http://localhost:8000/partidas
+Ranking:              http://localhost:8000/ranking
+
+========================================

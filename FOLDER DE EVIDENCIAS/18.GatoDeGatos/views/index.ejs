@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gato de Gatos - Inicio</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo-principal">GATO DE GATOS</h1>
+        
+        <div class="acciones">
+            <button class="btn-secondary" onclick="window.location.href='/partidas'">Gestionar Partidas</button>
+            <button class="btn-secondary" onclick="window.location.href='/ranking'">Ver Ranking Completo</button>
+        </div>
+        
+        <% if (error) { %>
+            <div class="alert-error">
+                <%= error %>
+            </div>
+        <% } %>
+        
+        <div class="inicio-partida">
+            <h2>Iniciar Nueva Partida</h2>
+            
+            <div class="form-jugadores">
+                <div class="jugador-input">
+                    <label for="jugador1">Jugador 1 (X):</label>
+                    <input type="text" id="jugador1" placeholder="Nombre del jugador 1" required>
+                    <span class="jugador-id" id="jugador1-id"></span>
+                </div>
+                
+                <div class="vs">VS</div>
+                
+                <div class="jugador-input">
+                    <label for="jugador2">Jugador 2 (O):</label>
+                    <input type="text" id="jugador2" placeholder="Nombre del jugador 2" required>
+                    <span class="jugador-id" id="jugador2-id"></span>
+                </div>
+            </div>
+            
+            <button id="btn-iniciar" class="btn-primary">Iniciar Partida</button>
+        </div>
+        
+        <div class="ranking-previo">
+            <h2>Top 10 Jugadores</h2>
+            <div class="tabla-wrapper">
+                <table class="tabla-ranking">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Jugador</th>
+                        <th>Puntuación</th>
+                        <th>Ganadas</th>
+                        <th>Perdidas</th>
+                        <th>Empatadas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (jugadores.length === 0) { %>
+                        <tr>
+                            <td colspan="6" class="no-datos">No hay jugadores registrados</td>
+                        </tr>
+                    <% } else { %>
+                        <% jugadores.slice(0, 10).forEach((jugador, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= jugador.nombre %></td>
+                                <td class="puntos"><%= jugador.puntuacion_total %></td>
+                                <td class="ganadas"><%= jugador.partidas_ganadas %></td>
+                                <td class="perdidas"><%= jugador.partidas_perdidas %></td>
+                                <td class="empatadas"><%= jugador.partidas_empatadas %></td>
+                            </tr>
+                        <% }); %>
+                    <% } %>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        
+        <div class="instrucciones">
+            <h3>Como Jugar</h3>
+            <ul>
+                <li>El "Gato de Gatos" es un tablero de 3x3 con 9 mini-tableros de gato dentro</li>
+                <li>Cada jugador se turna para marcar una casilla en un mini-tablero</li>
+                <li>El mini-tablero donde jugaste determina dónde debe jugar tu oponente</li>
+                <li>Gana quien complete 3 mini-tableros en línea en el tablero principal</li>
+                <li>Cada mini-tablero ganado vale 10 puntos, el ganador del juego recibe 50 puntos bonus</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        let jugador1Id = null;
+        let jugador2Id = null;
+        
+        // Buscar o crear jugador
+        async function buscarJugador(nombre, numeroJugador) {
+            const response = await fetch('/jugador', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre: nombre })
+            });
+            
+            if (!response.ok) {
+                alert('Error al buscar/crear jugador');
+                return null;
+            }
+            
+            const jugador = await response.json();
+            
+            if (numeroJugador === 1) {
+                jugador1Id = jugador.id;
+                document.getElementById('jugador1-id').textContent = `ID: ${jugador.id}`;
+            } else {
+                jugador2Id = jugador.id;
+                document.getElementById('jugador2-id').textContent = `ID: ${jugador.id}`;
+            }
+            
+            return jugador;
+        }
+        
+        // Eventos para buscar jugadores al escribir
+        document.getElementById('jugador1').addEventListener('blur', async function() {
+            const nombre = this.value.trim();
+            if (nombre) {
+                await buscarJugador(nombre, 1);
+            }
+        });
+        
+        document.getElementById('jugador2').addEventListener('blur', async function() {
+            const nombre = this.value.trim();
+            if (nombre) {
+                await buscarJugador(nombre, 2);
+            }
+        });
+        
+        // Iniciar partida
+        document.getElementById('btn-iniciar').addEventListener('click', async function() {
+            const nombre1 = document.getElementById('jugador1').value.trim();
+            const nombre2 = document.getElementById('jugador2').value.trim();
+            
+            if (!nombre1 || !nombre2) {
+                alert('Por favor ingresa ambos nombres de jugadores');
+                return;
+            }
+            
+            if (nombre1 === nombre2) {
+                alert('Los nombres deben ser diferentes');
+                return;
+            }
+            
+            // Asegurar que tenemos los IDs
+            if (!jugador1Id) await buscarJugador(nombre1, 1);
+            if (!jugador2Id) await buscarJugador(nombre2, 2);
+            
+            if (!jugador1Id || !jugador2Id) {
+                alert('Error al obtener información de los jugadores');
+                return;
+            }
+            
+            // Crear partida
+            const response = await fetch('/partida/iniciar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    jugador1_id: jugador1Id,
+                    jugador2_id: jugador2Id
+                })
+            });
+            
+            if (!response.ok) {
+                alert('Error al iniciar partida');
+                return;
+            }
+            
+            const data = await response.json();
+            window.location.href = `/juego/${data.partida_id}`;
+        });
+    </script>
+</body>
+</html>
