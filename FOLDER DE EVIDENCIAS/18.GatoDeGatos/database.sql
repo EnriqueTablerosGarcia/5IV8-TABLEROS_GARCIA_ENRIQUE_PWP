@@ -1,8 +1,8 @@
--- Crear base de datos
+
 CREATE DATABASE IF NOT EXISTS gato_de_gatos;
 USE gato_de_gatos;
 
--- Tabla de jugadores
+
 CREATE TABLE IF NOT EXISTS jugadores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS jugadores (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla de partidas
 CREATE TABLE IF NOT EXISTS partidas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     jugador1_id INT NOT NULL,
@@ -29,10 +28,3 @@ CREATE TABLE IF NOT EXISTS partidas (
     FOREIGN KEY (jugador2_id) REFERENCES jugadores(id),
     FOREIGN KEY (ganador_id) REFERENCES jugadores(id)
 );
-
--- Insertar jugadores de ejemplo
-INSERT INTO jugadores (nombre, partidas_jugadas, partidas_ganadas, partidas_perdidas, partidas_empatadas, puntuacion_total) 
-VALUES 
-('Jugador1', 5, 3, 1, 1, 300),
-('Jugador2', 5, 2, 2, 1, 200)
-ON DUPLICATE KEY UPDATE nombre=nombre;
