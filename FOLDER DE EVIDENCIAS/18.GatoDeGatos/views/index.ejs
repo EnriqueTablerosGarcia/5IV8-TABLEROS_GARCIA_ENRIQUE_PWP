@@ -95,30 +95,157 @@
         let jugador1Id = null;
         let jugador2Id = null;
         
+        // FUNCIONES DE VALIDACIÓN
+        
+        // Función para detectar emojis
+        function contieneEmojis(texto) {
+            const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F1E0}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2B1B}-\u{2B1C}\u{3297}\u{3299}\u{303D}\u{00A9}\u{00AE}\u{2122}\u{23F3}\u{24C2}\u{23E9}-\u{23EF}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}]/gu;
+            return emojiRegex.test(texto);
+        }
+        
+        // Función para validar caracteres permitidos
+        function esNombreValido(texto) {
+            const nombreRegex = /^[a-zA-Z0-9\s\-\.ÁÉÍÓÚáéíóúÑñ]+$/;
+            return nombreRegex.test(texto);
+        }
+        
+        // Función para validar scripts maliciosos
+        function contieneScriptMalicioso(texto) {
+            const scriptRegex = /<script|javascript:|onerror=|onclick=|onload=|<iframe|eval\(|alert\(/gi;
+            return scriptRegex.test(texto);
+        }
+        
+        // Función para validar espacios múltiples
+        function tieneEspaciosMultiples(texto) {
+            return /\s{2,}/.test(texto);
+        }
+        
+        // Función para validar nombre del jugador
+        function validarNombreJugador(nombre) {
+            const errores = [];
+            
+            // Validar que no esté vacío
+            if (!nombre || nombre.trim() === '') {
+                errores.push('El nombre es obligatorio');
+                return errores;
+            }
+            
+            const nombreLimpio = nombre.trim();
+            
+            // Validar longitud
+            if (nombreLimpio.length < 2 || nombreLimpio.length > 50) {
+                errores.push('El nombre debe tener entre 2 y 50 caracteres');
+            }
+            
+            // Validar emojis
+            if (contieneEmojis(nombreLimpio)) {
+                errores.push('No se permiten emojis en el nombre');
+            }
+            
+            // Validar scripts maliciosos
+            if (contieneScriptMalicioso(nombreLimpio)) {
+                errores.push('Contenido malicioso detectado en el nombre');
+            }
+            
+            // Validar caracteres permitidos
+            if (!esNombreValido(nombreLimpio)) {
+                errores.push('El nombre contiene caracteres no permitidos (solo letras, números, espacios, guiones y puntos)');
+            }
+            
+            // Validar espacios múltiples
+            if (tieneEspaciosMultiples(nombreLimpio)) {
+                errores.push('El nombre no debe tener espacios múltiples consecutivos');
+            }
+            
+            // Validar que no sea solo números
+            if (/^\d+$/.test(nombreLimpio)) {
+                errores.push('El nombre no puede ser solo números');
+            }
+            
+            // Validar que no comience con un número
+            if (/^\d/.test(nombreLimpio)) {
+                errores.push('El nombre no puede comenzar con un número');
+            }
+            
+            return errores;
+        }
+        
+        // Mostrar errores en el campo
+        function mostrarError(inputId, mensaje) {
+            const input = document.getElementById(inputId);
+            let errorDiv = input.nextElementSibling;
+            
+            // Crear el div de error si no existe
+            if (!errorDiv || !errorDiv.classList.contains('error-mensaje')) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'error-mensaje';
+                errorDiv.style.color = 'red';
+                errorDiv.style.fontSize = '12px';
+                errorDiv.style.marginTop = '5px';
+                input.parentNode.insertBefore(errorDiv, input.nextSibling);
+            }
+            
+            errorDiv.textContent = mensaje;
+            input.style.borderColor = 'red';
+        }
+        
+        // Limpiar error
+        function limpiarError(inputId) {
+            const input = document.getElementById(inputId);
+            const errorDiv = input.nextElementSibling;
+            
+            if (errorDiv && errorDiv.classList.contains('error-mensaje')) {
+                errorDiv.remove();
+            }
+            
+            input.style.borderColor = '';
+        }
+        
         // Buscar o crear jugador
         async function buscarJugador(nombre, numeroJugador) {
-            const response = await fetch('/jugador', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombre: nombre })
-            });
+            const inputId = `jugador${numeroJugador}`;
             
-            if (!response.ok) {
-                alert('Error al buscar/crear jugador');
+            // Limpiar error previo
+            limpiarError(inputId);
+            
+            // Validar nombre
+            const errores = validarNombreJugador(nombre);
+            if (errores.length > 0) {
+                mostrarError(inputId, errores.join(' | '));
                 return null;
             }
             
-            const jugador = await response.json();
-            
-            if (numeroJugador === 1) {
-                jugador1Id = jugador.id;
-                document.getElementById('jugador1-id').textContent = `ID: ${jugador.id}`;
-            } else {
-                jugador2Id = jugador.id;
-                document.getElementById('jugador2-id').textContent = `ID: ${jugador.id}`;
+            try {
+                const response = await fetch('/jugador', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre: nombre.trim() })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    mostrarError(inputId, data.error || 'Error al buscar/crear jugador');
+                    return null;
+                }
+                
+                const jugador = data;
+                
+                if (numeroJugador === 1) {
+                    jugador1Id = jugador.id;
+                    document.getElementById('jugador1-id').textContent = `ID: ${jugador.id}`;
+                    document.getElementById('jugador1-id').style.color = 'green';
+                } else {
+                    jugador2Id = jugador.id;
+                    document.getElementById('jugador2-id').textContent = `ID: ${jugador.id}`;
+                    document.getElementById('jugador2-id').style.color = 'green';
+                }
+                
+                return jugador;
+            } catch (error) {
+                mostrarError(inputId, 'Error de conexión con el servidor');
+                return null;
             }
-            
-            return jugador;
         }
         
         // Eventos para buscar jugadores al escribir
@@ -141,13 +268,29 @@
             const nombre1 = document.getElementById('jugador1').value.trim();
             const nombre2 = document.getElementById('jugador2').value.trim();
             
+            // Validar campos vacíos
             if (!nombre1 || !nombre2) {
                 alert('Por favor ingresa ambos nombres de jugadores');
                 return;
             }
             
-            if (nombre1 === nombre2) {
-                alert('Los nombres deben ser diferentes');
+            // Validar que sean diferentes
+            if (nombre1.toLowerCase() === nombre2.toLowerCase()) {
+                alert('Los nombres de los jugadores deben ser diferentes');
+                return;
+            }
+            
+            // Validar jugador 1
+            const erroresJ1 = validarNombreJugador(nombre1);
+            if (erroresJ1.length > 0) {
+                mostrarError('jugador1', erroresJ1.join(' | '));
+                return;
+            }
+            
+            // Validar jugador 2
+            const erroresJ2 = validarNombreJugador(nombre2);
+            if (erroresJ2.length > 0) {
+                mostrarError('jugador2', erroresJ2.join(' | '));
                 return;
             }
             
@@ -156,27 +299,32 @@
             if (!jugador2Id) await buscarJugador(nombre2, 2);
             
             if (!jugador1Id || !jugador2Id) {
-                alert('Error al obtener información de los jugadores');
+                alert('Error al obtener información de los jugadores. Por favor verifica los nombres.');
                 return;
             }
             
             // Crear partida
-            const response = await fetch('/partida/iniciar', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    jugador1_id: jugador1Id,
-                    jugador2_id: jugador2Id
-                })
-            });
-            
-            if (!response.ok) {
-                alert('Error al iniciar partida');
-                return;
+            try {
+                const response = await fetch('/partida/iniciar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        jugador1_id: jugador1Id,
+                        jugador2_id: jugador2Id
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    alert(data.error || 'Error al iniciar partida');
+                    return;
+                }
+                
+                window.location.href = `/juego/${data.partida_id}`;
+            } catch (error) {
+                alert('Error de conexión con el servidor');
             }
-            
-            const data = await response.json();
-            window.location.href = `/juego/${data.partida_id}`;
         });
     </script>
 </body>
