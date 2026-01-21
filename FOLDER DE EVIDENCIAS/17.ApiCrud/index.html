@@ -5,251 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Práctica 17 - API CRUD Completa</title>
     <link rel="icon" type="image/x-icon" href="../14.CrudSQL/IMG/EVA.jpeg">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" href="css/evidencias.css">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #f5576c;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
-
-        .descripcion-section {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-
-        .descripcion-section h2 {
-            color: #e74c3c;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-        }
-
-        .descripcion-section p {
-            line-height: 1.8;
-            color: #333;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
-
-        .descripcion-section ul {
-            margin-left: 30px;
-            line-height: 2;
-        }
-
-        .descripcion-section li {
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        .tecnologias {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-
-        .tecnologias h2 {
-            color: #6c5ce7;
-            margin-bottom: 20px;
-        }
-
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .tech-item {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            color: #6c5ce7;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .estructura-section {
-            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-
-        .estructura-section h2 {
-            color: #c44569;
-            margin-bottom: 20px;
-        }
-
-        .code-block {
-            background: #2d3436;
-            color: #00ff00;
-            padding: 20px;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            overflow-x: auto;
-            margin: 15px 0;
-            line-height: 1.6;
-        }
-
-        .caracteristicas {
-            background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-
-        .caracteristicas h2 {
-            color: #8e44ad;
-            margin-bottom: 20px;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-card h3 {
-            color: #8e44ad;
-            margin-bottom: 10px;
-        }
-
-        .arquitectura {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-
-        .arquitectura h2 {
-            color: #d63031;
-            margin-bottom: 20px;
-        }
-
-        .arq-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .arq-box {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .arq-box h3 {
-            color: #d63031;
-            margin-bottom: 10px;
-            font-size: 1.3em;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 30px 0;
-        }
-
-        .image-container {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .image-container:hover {
-            transform: translateY(-10px);
-        }
-
-        .image-container h3 {
-            color: #f5576c;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .image-container img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .footer-link {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .footer-link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .arq-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -257,7 +15,7 @@
         <p class="subtitle">Sistema Full Stack con Backend y Frontend Separados</p>
         
         <div class="descripcion-section">
-            <h2>📋 Descripción del Proyecto</h2>
+            <h2>Descripción del Proyecto</h2>
             <p>API CRUD completa con arquitectura separada entre Backend y Frontend, implementando todas las operaciones de gestión de productos con categorías.</p>
             <ul>
                 <li><strong>Backend:</strong> API REST con Node.js, Express y MySQL</li>
@@ -269,10 +27,10 @@
         </div>
 
         <div class="arquitectura">
-            <h2>🏗️ Arquitectura del Sistema</h2>
+            <h2>Arquitectura del Sistema</h2>
             <div class="arq-grid">
                 <div class="arq-box">
-                    <h3>🔧 Backend</h3>
+                    <h3>Backend</h3>
                     <ul>
                         <li>Server.js - Servidor Express</li>
                         <li>Controllers - Lógica de negocio</li>
@@ -282,7 +40,7 @@
                     </ul>
                 </div>
                 <div class="arq-box">
-                    <h3>🎨 Frontend</h3>
+                    <h3>Frontend</h3>
                     <ul>
                         <li>Public - Archivos estáticos</li>
                         <li>Views - Vistas EJS</li>
@@ -294,7 +52,7 @@
         </div>
 
         <div class="tecnologias">
-            <h2>🛠️ Tecnologías Utilizadas</h2>
+            <h2>Tecnologías Utilizadas</h2>
             <div class="tech-grid">
                 <div class="tech-item">Node.js (ES6 Modules)</div>
                 <div class="tech-item">Express.js</div>
@@ -308,7 +66,7 @@
         </div>
 
         <div class="estructura-section">
-            <h2>📁 Estructura del Proyecto</h2>
+            <h2>Estructura del Proyecto</h2>
             <div class="code-block">
 17.ApiCrud/
 ├── Backend/
@@ -337,45 +95,45 @@
         </div>
 
         <div class="caracteristicas">
-            <h2>✨ Características Principales</h2>
+            <h2>Características Principales</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3>🔄 CRUD Completo</h3>
+                    <h3>CRUD Completo</h3>
                     <p>Create, Read, Update, Delete para productos</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🏷️ Gestión de Categorías</h3>
+                    <h3>Gestión de Categorías</h3>
                     <p>Sistema de categorización de productos</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🌐 API RESTful</h3>
+                    <h3>API RESTful</h3>
                     <p>Endpoints siguiendo convenciones REST</p>
                 </div>
                 <div class="feature-card">
-                    <h3>📊 Base de Datos MySQL</h3>
+                    <h3>Base de Datos MySQL</h3>
                     <p>Almacenamiento persistente de datos</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🎯 Separación Frontend/Backend</h3>
+                    <h3>Separación Frontend/Backend</h3>
                     <p>Arquitectura desacoplada y escalable</p>
                 </div>
                 <div class="feature-card">
-                    <h3>⚡ Fetch API</h3>
+                    <h3>Fetch API</h3>
                     <p>Comunicación asíncrona con el servidor</p>
                 </div>
                 <div class="feature-card">
-                    <h3>✅ Validaciones</h3>
+                    <h3>Validaciones</h3>
                     <p>Validación en cliente y servidor</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🎨 Interfaz Moderna</h3>
+                    <h3>Interfaz Moderna</h3>
                     <p>UI responsive y atractiva</p>
                 </div>
             </div>
         </div>
 
         <div class="descripcion-section">
-            <h2>🚀 Endpoints de la API</h2>
+            <h2>Endpoints de la API</h2>
             <ul>
                 <li><strong>GET /products</strong> - Obtener todos los productos</li>
                 <li><strong>GET /products/:id</strong> - Obtener un producto por ID</li>
@@ -387,7 +145,7 @@
         </div>
 
         <div class="tecnologias">
-            <h2>💾 Modelo de Datos</h2>
+            <h2>Modelo de Datos</h2>
             <div class="code-block">
 // Tabla: products
 {
@@ -407,7 +165,7 @@
         </div>
 
         <div class="caracteristicas">
-            <h2>🔧 Funcionalidades del Frontend</h2>
+            <h2>Funcionalidades del Frontend</h2>
             <ul>
                 <li><strong>CreateNewItem():</strong> Crear nuevos productos con validación</li>
                 <li><strong>Formulario Dinámico:</strong> Campos para nombre, precio, stock y categoría</li>
@@ -418,20 +176,10 @@
             </ul>
         </div>
 
-        <div class="gallery">
-            <div class="image-container">
-                <h3>📸 Evidencias del Código</h3>
-                <p style="text-align: center; color: #666; margin-top: 10px;">
-                    Captura de pantalla de la implementación del Backend y Frontend
-                </p>
-                <p style="text-align: center; color: #999; font-size: 0.9em; margin-top: 10px;">
-                    (Agrega tus capturas de pantalla aquí)
-                </p>
-            </div>
-        </div>
+
 
         <div class="arquitectura">
-            <h2>🎓 Aprendizajes Clave</h2>
+            <h2>Aprendizajes Clave</h2>
             <ul>
                 <li>Implementación de arquitectura separada Frontend/Backend</li>
                 <li>Creación de APIs RESTful completas</li>
@@ -446,7 +194,7 @@
         </div>
 
         <div class="descripcion-section">
-            <h2>⚙️ Configuración y Ejecución</h2>
+            <h2>Configuración y Ejecución</h2>
             <div class="code-block">
 # Backend
 cd Backend
@@ -464,7 +212,7 @@ npm start
     </div>
 
     <footer>
-        <a href="../../index.html" class="footer-link">⬅ Volver al Menú de Prácticas</a>
+        <a href="../../index.html" class="footer-link">Volver al Menú de Prácticas</a>
     </footer>
 </body>
 </html>
